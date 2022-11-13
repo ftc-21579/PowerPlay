@@ -31,7 +31,7 @@ public class BNO055IMUUtil {
      * @param order axes order
      * @param signs axes signs
      */
-    public static void swapThenFlipAxes(BNO055IMU imu, AxesOrder order, org.firstinspires.ftc.teamcode.util.AxesSigns signs) {
+    public static void swapThenFlipAxes(BNO055IMU imu, AxesOrder order, org.firstinspires.ftc.teamcode.rr.util.AxesSigns signs) {
         try {
             // the indices correspond with the 2-bit axis encodings specified in the datasheet
             int[] indices = order.indices();
@@ -85,25 +85,25 @@ public class BNO055IMUUtil {
      * @param imu IMU
      * @param direction axis direction
      */
-    public static void remapZAxis(BNO055IMU imu, org.firstinspires.ftc.teamcode.util.AxisDirection direction) {
+    public static void remapZAxis(BNO055IMU imu, org.firstinspires.ftc.teamcode.rr.util.AxisDirection direction) {
         switch (direction) {
             case POS_X:
-                swapThenFlipAxes(imu, AxesOrder.ZYX, org.firstinspires.ftc.teamcode.util.AxesSigns.NPP);
+                swapThenFlipAxes(imu, AxesOrder.ZYX, org.firstinspires.ftc.teamcode.rr.util.AxesSigns.NPP);
                 break;
             case NEG_X:
-                swapThenFlipAxes(imu, AxesOrder.ZYX, org.firstinspires.ftc.teamcode.util.AxesSigns.PPN);
+                swapThenFlipAxes(imu, AxesOrder.ZYX, org.firstinspires.ftc.teamcode.rr.util.AxesSigns.PPN);
                 break;
             case POS_Y:
-                swapThenFlipAxes(imu, AxesOrder.XZY, org.firstinspires.ftc.teamcode.util.AxesSigns.PNP);
+                swapThenFlipAxes(imu, AxesOrder.XZY, org.firstinspires.ftc.teamcode.rr.util.AxesSigns.PNP);
                 break;
             case NEG_Y:
-                swapThenFlipAxes(imu, AxesOrder.XZY, org.firstinspires.ftc.teamcode.util.AxesSigns.PPN);
+                swapThenFlipAxes(imu, AxesOrder.XZY, org.firstinspires.ftc.teamcode.rr.util.AxesSigns.PPN);
                 break;
             case POS_Z:
-                swapThenFlipAxes(imu, AxesOrder.XYZ, org.firstinspires.ftc.teamcode.util.AxesSigns.PPP);
+                swapThenFlipAxes(imu, AxesOrder.XYZ, org.firstinspires.ftc.teamcode.rr.util.AxesSigns.PPP);
                 break;
             case NEG_Z:
-                swapThenFlipAxes(imu, AxesOrder.XYZ, org.firstinspires.ftc.teamcode.util.AxesSigns.PNN);
+                swapThenFlipAxes(imu, AxesOrder.XYZ, org.firstinspires.ftc.teamcode.rr.util.AxesSigns.PNN);
                 break;
         }
     }
@@ -117,11 +117,11 @@ public class BNO055IMUUtil {
      * @param signs axes signs
      */
     @Deprecated
-    public static void remapAxes(BNO055IMU imu, AxesOrder order, org.firstinspires.ftc.teamcode.util.AxesSigns signs) {
+    public static void remapAxes(BNO055IMU imu, AxesOrder order, org.firstinspires.ftc.teamcode.rr.util.AxesSigns signs) {
         AxesOrder adjustedAxesOrder = order.reverse();
         int[] indices = order.indices();
         int axisSignValue = signs.bVal ^ (0b100 >> indices[0]);
-        org.firstinspires.ftc.teamcode.util.AxesSigns adjustedAxesSigns = org.firstinspires.ftc.teamcode.util.AxesSigns.fromBinaryValue(axisSignValue);
+        org.firstinspires.ftc.teamcode.rr.util.AxesSigns adjustedAxesSigns = org.firstinspires.ftc.teamcode.rr.util.AxesSigns.fromBinaryValue(axisSignValue);
 
         swapThenFlipAxes(imu, adjustedAxesOrder, adjustedAxesSigns);
     }
