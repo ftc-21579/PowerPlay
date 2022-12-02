@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp
@@ -29,6 +30,9 @@ public class RobotCentricMecanum extends LinearOpMode {
         // Vertical Servo
         CRServo vertServo1 = hardwareMap.crservo.get("vertical");
         CRServo vertServo2 = hardwareMap.crservo.get("vertical2");
+
+        // Touch Sensor
+        TouchSensor bottom = hardwareMap.touchSensor.get("bottom");
 
         // Declare our motors
         // Make sure your ID's match your configuration
@@ -73,8 +77,10 @@ public class RobotCentricMecanum extends LinearOpMode {
                 gripPos += 0.01;
             }
 
+
+            telemetry.addData("botton", bottom.isPressed());
             // Vertical Slides
-            if (rTrigger > 0.2) {
+            if (rTrigger > 0.2 && bottom.isPressed()) {
                 vertPow = 1.0;
             }
             else if (lTrigger > 0.2) {
