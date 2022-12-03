@@ -1,18 +1,20 @@
 package org.firstinspires.ftc.teamcode.auton;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+@Config
 @Autonomous(name="Parking", group="LinearOpmode")
 public class EncoderAuton extends LinearOpMode {
 
     // Declare motors
-    DcMotor motorFrontLeft = hardwareMap.dcMotor.get("motorFrontLeft");
-    DcMotor motorBackLeft = hardwareMap.dcMotor.get("motorBackLeft");
-    DcMotor motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight");
-    DcMotor motorBackRight = hardwareMap.dcMotor.get("motorBackRight");
+    DcMotor motorFrontLeft;
+    DcMotor motorBackLeft;
+    DcMotor motorFrontRight;
+    DcMotor motorBackRight;
 
     // Motor position variables
     private int flPos, blPos, frPos, brPos;
@@ -21,12 +23,20 @@ public class EncoderAuton extends LinearOpMode {
     private final double fast = 0.7;
     private final double medium = 0.4;
     private final double slow = 0.2;
-    private final double ticksPerInch = 114.6; // TODO: Verify this number
-    private final double ticksPerDeg = 4; // TODO: Verify this number
+    public static double ticksPerInch = 114.6; // TODO: Verify this number
+    public static double ticksPerDeg = 4; // TODO: Verify this number
+
+    public static int distanceOne = 27;
+    public static int distanceTwo = 26;
 
     @Override
     public void runOpMode() {
         telemetry.setAutoClear(true);
+
+        motorFrontLeft = hardwareMap.dcMotor.get("motorFrontLeft");
+        motorBackLeft = hardwareMap.dcMotor.get("motorBackLeft");
+        motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight");
+        motorBackRight = hardwareMap.dcMotor.get("motorBackRight");
 
         // Adjust motor directions
         motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -38,6 +48,12 @@ public class EncoderAuton extends LinearOpMode {
         motorFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorBackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        // Set motor target
+        motorFrontLeft.setTargetPosition(0);
+        motorBackLeft.setTargetPosition(0);
+        motorFrontRight.setTargetPosition(0);
+        motorBackRight.setTargetPosition(0);
+
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorBackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -48,6 +64,8 @@ public class EncoderAuton extends LinearOpMode {
 
         // Instructions here
         // Distance in inches, angles in deg
+        moveForward(distanceOne, medium);
+        moveRight(distanceTwo, medium);
     }
 
     private void moveForward(int distance, double speed) {
@@ -82,10 +100,14 @@ public class EncoderAuton extends LinearOpMode {
 
             // Output some telemetry
             telemetry.addLine("Move Forward");
-            telemetry.addData("Target", "%7 :%7d", flPos, blPos, frPos, brPos);
-            telemetry.addData("Actual", "%7 :%7d",
-                    motorFrontLeft.getCurrentPosition(), motorBackLeft.getCurrentPosition(),
-                    motorFrontRight.getCurrentPosition(), motorBackRight.getCurrentPosition());
+            telemetry.addData("Target", "fl: " + Integer.toString(flPos) + " bl: " +
+                    Integer.toString(blPos) + " fr: " + Integer.toString(frPos) + " br: " +
+                    Integer.toString(brPos));
+            telemetry.addData("Actual",
+                    "fl: " + Integer.toString(motorFrontLeft.getCurrentPosition()) +
+                            " bl: " + Integer.toString(motorBackLeft.getCurrentPosition()) +
+                            " fr: " + Integer.toString(motorFrontRight.getCurrentPosition()) +
+                            " br: " + Integer.toString(motorBackRight.getCurrentPosition()));
             telemetry.update();
         }
 
@@ -106,8 +128,8 @@ public class EncoderAuton extends LinearOpMode {
         brPos = motorBackRight.getCurrentPosition();
 
         // Calculate new targets
-        flPos -= distance * ticksPerInch;
-        blPos += distance * ticksPerInch;
+        flPos += distance * ticksPerInch;
+        blPos -= distance * ticksPerInch;
         frPos -= distance * ticksPerInch;
         brPos += distance * ticksPerInch;
 
@@ -128,10 +150,14 @@ public class EncoderAuton extends LinearOpMode {
 
             // Output some telemetry
             telemetry.addLine("Strafe Right");
-            telemetry.addData("Target", "%7 :%7d", flPos, blPos, frPos, brPos);
-            telemetry.addData("Actual", "%7 :%7d",
-                    motorFrontLeft.getCurrentPosition(), motorBackLeft.getCurrentPosition(),
-                    motorFrontRight.getCurrentPosition(), motorBackRight.getCurrentPosition());
+            telemetry.addData("Target", "fl: " + Integer.toString(flPos) + " bl: " +
+                    Integer.toString(blPos) + " fr: " + Integer.toString(frPos) + " br: " +
+                    Integer.toString(brPos));
+            telemetry.addData("Actual",
+                    "fl: " + Integer.toString(motorFrontLeft.getCurrentPosition()) +
+                            " bl: " + Integer.toString(motorBackLeft.getCurrentPosition()) +
+                            " fr: " + Integer.toString(motorFrontRight.getCurrentPosition()) +
+                            " br: " + Integer.toString(motorBackRight.getCurrentPosition()));
             telemetry.update();
         }
 
@@ -174,10 +200,14 @@ public class EncoderAuton extends LinearOpMode {
 
             // Output some telemetry
             telemetry.addLine("Turn Clockwise");
-            telemetry.addData("Target", "%7 :%7d", flPos, blPos, frPos, brPos);
-            telemetry.addData("Actual", "%7 :%7d",
-                    motorFrontLeft.getCurrentPosition(), motorBackLeft.getCurrentPosition(),
-                    motorFrontRight.getCurrentPosition(), motorBackRight.getCurrentPosition());
+            telemetry.addData("Target", "fl: " + Integer.toString(flPos) + " bl: " +
+                    Integer.toString(blPos) + " fr: " + Integer.toString(frPos) + " br: " +
+                    Integer.toString(brPos));
+            telemetry.addData("Actual",
+                    "fl: " + Integer.toString(motorFrontLeft.getCurrentPosition()) +
+                            " bl: " + Integer.toString(motorBackLeft.getCurrentPosition()) +
+                            " fr: " + Integer.toString(motorFrontRight.getCurrentPosition()) +
+                            " br: " + Integer.toString(motorBackRight.getCurrentPosition()));
             telemetry.update();
         }
 
