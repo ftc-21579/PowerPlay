@@ -6,11 +6,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.teamcode.util.EncoderMovement;
+
 @Config
 @Autonomous(name="Parking", group="LinearOpmode")
 public class EncoderAuton extends LinearOpMode {
 
-    // Declare motors
+    /*// Declare motors
     DcMotor motorFrontLeft;
     DcMotor motorBackLeft;
     DcMotor motorFrontRight;
@@ -23,7 +25,7 @@ public class EncoderAuton extends LinearOpMode {
     private final double fast = 0.7;
     private final double medium = 0.4;
     private final double slow = 0.2;
-    public static double ticksPerInch = 114.6; // TODO: Verify this number
+    public static double ticksPerInch = 114.6;
     public static double ticksPerDeg = 4; // TODO: Verify this number
 
     public static int distanceOne = 27;
@@ -62,10 +64,8 @@ public class EncoderAuton extends LinearOpMode {
         // Wait for play pressing
         waitForStart();
 
-        // Instructions here
-        // Distance in inches, angles in deg
         moveForward(distanceOne, medium);
-        moveRight(distanceTwo, medium);
+        moveRight(distanceTwo, slow);
     }
 
     private void moveForward(int distance, double speed) {
@@ -216,5 +216,18 @@ public class EncoderAuton extends LinearOpMode {
         motorBackLeft.setPower(0);
         motorFrontRight.setPower(0);
         motorBackRight.setPower(0);
+    }*/
+
+    private EncoderMovement movement;
+
+    @Override
+    public void runOpMode() {
+        telemetry.setAutoClear(true);
+
+        movement = new EncoderMovement(hardwareMap, telemetry);
+
+        waitForStart();
+
+        movement.moveForward(24, 0.4);
     }
 }
