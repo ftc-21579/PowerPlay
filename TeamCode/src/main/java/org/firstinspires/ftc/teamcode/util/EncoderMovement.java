@@ -19,8 +19,8 @@ public class EncoderMovement {
     private int flPos, blPos, frPos, brPos;
 
     // Config Vars
-    public static double ticksPerInch = 114.6;
-    public static double ticksPerDeg = 4; // TODO: Verify this number
+    public static double ticksPerInch = 57.3;
+    public static double ticksPerDeg = 2; // TODO: Verify this number
 
     public EncoderMovement(HardwareMap hardware, Telemetry givenTelemetry) {
 

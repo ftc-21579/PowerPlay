@@ -15,7 +15,8 @@ import com.qualcomm.robotcore.util.Range;
 public class RobotCentricMecanum extends LinearOpMode {
 
     double vertPow, gripPos;
-    double MIN_POSITION = 0, MAX_POSITION = 1;
+    boolean topPressed, bottomPressed = false;
+    double MIN_POSITION = 0.8, MAX_POSITION = 1;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -29,10 +30,10 @@ public class RobotCentricMecanum extends LinearOpMode {
 
         // Vertical Servo
         CRServo vertServo1 = hardwareMap.crservo.get("vertical");
-        CRServo vertServo2 = hardwareMap.crservo.get("vertical2");
 
-        // Touch Sensor
+        // Touch Sensors
         TouchSensor bottom = hardwareMap.touchSensor.get("bottom");
+        TouchSensor top = hardwareMap.touchSensor.get("top");
 
         // Declare our motors
         // Make sure your ID's match your configuration
@@ -70,6 +71,9 @@ public class RobotCentricMecanum extends LinearOpMode {
             double rTrigger = gamepad2.right_trigger;
             double lTrigger = gamepad2.left_trigger;
 
+            bottomPressed = bottom.isPressed();
+            topPressed = top.isPressed();
+
             // Gripper
             double gripPos = gripServo.getPosition();
             if (rBump) {
@@ -82,10 +86,11 @@ public class RobotCentricMecanum extends LinearOpMode {
 
             telemetry.addData("botton", bottom.isPressed());
             // Vertical Slides
+
             if (rTrigger > 0.2 && bottom.isPressed()) {
                 vertPow = 1.0;
             }
-            else if (lTrigger > 0.2) {
+            else if (lTrigger > 0.2 && top.isPressed()) {
                 vertPow = -1.0;
             }
             else {
@@ -94,15 +99,16 @@ public class RobotCentricMecanum extends LinearOpMode {
 
             gripServo.setPosition(Range.clip(gripPos, MIN_POSITION, MAX_POSITION));
             vertServo1.setPower(vertPow);
-            vertServo2.setPower(-vertPow);
             telemetry.addData("gripPos", gripPos);
             telemetry.addData("vertPow", vertPow);
 
+            /* Doesnt Work
             if (gamepad1.left_trigger > 0.2 || gamepad1.right_trigger > 0.2) {
                 max = 0.5;
             } else {
                 max = 1.0;
             }
+            */
 
             // Denominator is the largest motor power (absolute value) or 1
             // This ensures all the powers maintain the same ratio, but only when
