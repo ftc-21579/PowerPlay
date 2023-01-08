@@ -105,6 +105,10 @@ public class Lift {
         }
     }
 
+    public void stop() {
+        liftMotor.setPower(0.0);
+    }
+
     public void release() {
         claw.setPosition(1.0);
     }
