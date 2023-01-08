@@ -83,7 +83,7 @@ public class Lift {
         top = hardware.touchSensor.get("top");
 
         // Claw
-        claw = hardware.servo.get("gripper");
+        claw = hardware.servo.get("manipulator");
     }
 
     public enum LiftState {

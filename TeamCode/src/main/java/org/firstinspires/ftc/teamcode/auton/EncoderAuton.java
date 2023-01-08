@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.auton;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -31,35 +32,41 @@ public class EncoderAuton extends LinearOpMode {
 
         waitForStart();
 
-        switch(liftState) {
-            case LIFT_START:
-                if (!lift.atTop()) {
-                    lift.raise(liftSpeed);
-                } else {
-                    liftState = Lift.LiftState.LIFT_EXTEND;
-                }
-                break;
-            case LIFT_EXTEND:
-                if (lift.atTop()) {
-                    lift.release();
+        while(opModeIsActive()) {
+            switch (liftState) {
+                case LIFT_START:
+                    if (!lift.atTop()) {
+                        lift.raise(liftSpeed);
+                        telemetry.addData("Status: ","RAISING");
 
-                    liftTimer.reset();
-                    liftState = Lift.LiftState.LIFT_DROP;
-                }
-                break;
-            case LIFT_DROP:
-                if (liftTimer.seconds() >= DROP_TIME) {
-                    if (!lift.atBottom()) {
-                        lift.lower(liftSpeed);
                     } else {
-                    liftState = Lift.LiftState.LIFT_RETRACT;
+                        liftState = Lift.LiftState.LIFT_EXTEND;
                     }
-                }
-                break;
-            case LIFT_RETRACT:
-                telemetry.addLine("RETRACTED");
-                telemetry.update();
-                break;
+                    break;
+                case LIFT_EXTEND:
+                    if (lift.atTop()) {
+                        lift.release();
+                        telemetry.addData("Status: ","RELEASING");
+
+                        liftTimer.reset();
+                        liftState = Lift.LiftState.LIFT_DROP;
+                    }
+                    break;
+                case LIFT_DROP:
+                    if (liftTimer.seconds() >= DROP_TIME) {
+                        if (!lift.atBottom()) {
+                            lift.lower(liftSpeed);
+                            telemetry.addData("Status: ","RETRACTING");
+                        } else {
+                            liftState = Lift.LiftState.LIFT_RETRACT;
+                        }
+                    }
+                    break;
+                case LIFT_RETRACT:
+                    telemetry.addData("Status: ","RETRACTED");
+                    break;
+            }
+            telemetry.update();
         }
 
         //movement.moveForward(24, 0.4);
@@ -67,3 +74,4 @@ public class EncoderAuton extends LinearOpMode {
         //lift.openClaw();
     }
 }
+
