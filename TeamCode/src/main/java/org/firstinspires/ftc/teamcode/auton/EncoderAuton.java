@@ -45,6 +45,7 @@ public class EncoderAuton extends LinearOpMode {
                     break;
                 case LIFT_EXTEND:
                     if (lift.atTop()) {
+                        lift.stop();
                         lift.release();
                         telemetry.addData("Status: ","RELEASING");
 
@@ -63,6 +64,7 @@ public class EncoderAuton extends LinearOpMode {
                     }
                     break;
                 case LIFT_RETRACT:
+                    lift.stop();
                     telemetry.addData("Status: ","RETRACTED");
                     break;
             }
