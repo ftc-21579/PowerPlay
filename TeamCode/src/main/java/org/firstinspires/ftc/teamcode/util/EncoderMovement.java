@@ -238,6 +238,8 @@ public class EncoderMovement {
 
             FrontRight.setPower(-speed);
             BackRight.setPower(-speed);
+
+            currentYaw = robotOrientation.getYaw(AngleUnit.DEGREES);
         }
 
         endMovement();
