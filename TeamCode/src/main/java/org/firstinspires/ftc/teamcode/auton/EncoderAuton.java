@@ -33,47 +33,54 @@ public class EncoderAuton extends LinearOpMode {
         waitForStart();
 
         while(opModeIsActive()) {
-            switch (liftState) {
-                case LIFT_START:
-                    if (!lift.atTop()) {
-                        lift.raise(liftSpeed);
-                        telemetry.addData("Status: ","RAISING");
+            boolean cycled = false;
+            while(!cycled) {
+                switch (liftState) {
+                    case LIFT_START:
+                        if (!lift.atTop()) {
+                            lift.raise(liftSpeed);
+                            telemetry.addData("Status: ", "RAISING");
 
-                    } else {
-                        liftState = Lift.LiftState.LIFT_EXTEND;
-                    }
-                    break;
-                case LIFT_EXTEND:
-                    if (lift.atTop()) {
-                        lift.stop();
-                        lift.release();
-                        telemetry.addData("Status: ","RELEASING");
-
-                        liftTimer.reset();
-                        liftState = Lift.LiftState.LIFT_DROP;
-                    }
-                    break;
-                case LIFT_DROP:
-                    if (liftTimer.seconds() >= DROP_TIME) {
-                        if (!lift.atBottom()) {
-                            lift.lower(liftSpeed);
-                            telemetry.addData("Status: ","RETRACTING");
                         } else {
-                            liftState = Lift.LiftState.LIFT_RETRACT;
+                            liftState = Lift.LiftState.LIFT_EXTEND;
                         }
-                    }
-                    break;
-                case LIFT_RETRACT:
-                    lift.stop();
-                    telemetry.addData("Status: ","RETRACTED");
-                    break;
+                        break;
+                    case LIFT_EXTEND:
+                        if (lift.atTop()) {
+                            lift.stop();
+                            lift.release();
+                            telemetry.addData("Status: ", "RELEASING");
+
+                            liftTimer.reset();
+                            liftState = Lift.LiftState.LIFT_DROP;
+                        }
+                        break;
+                    case LIFT_DROP:
+                        if (liftTimer.seconds() >= DROP_TIME) {
+                            if (!lift.atBottom()) {
+                                lift.lower(liftSpeed);
+                                telemetry.addData("Status: ", "RETRACTING");
+                            } else {
+                                liftState = Lift.LiftState.LIFT_RETRACT;
+                            }
+                        }
+                        break;
+                    case LIFT_RETRACT:
+                        lift.stop();
+                        cycled = true;
+                        telemetry.addData("Status: ", "RETRACTED");
+                        break;
+                }
+                telemetry.update();
             }
-            telemetry.update();
+
+            movement.turnClockwise(90, 0.4);
+
+            stop();
+
         }
 
         //movement.moveForward(24, 0.4);
-        //lift.maxHeight();
-        //lift.openClaw();
     }
 }
 

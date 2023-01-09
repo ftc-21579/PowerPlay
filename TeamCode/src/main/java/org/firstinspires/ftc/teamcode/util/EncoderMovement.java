@@ -1,11 +1,16 @@
 package org.firstinspires.ftc.teamcode.util;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 
+import org.checkerframework.checker.units.qual.Angle;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 /**
  * Allows movement of the robot using encoders
@@ -21,6 +26,11 @@ public class EncoderMovement {
     // Config Vars
     public static double ticksPerInch = 57.3;
     public static double ticksPerDeg = 2; // TODO: Verify this number
+
+    // IMU
+    private final IMU imu;
+    IMU.Parameters parameters;
+    YawPitchRollAngles robotOrientation;
 
     public EncoderMovement(HardwareMap hardware, Telemetry givenTelemetry) {
 
@@ -54,6 +64,17 @@ public class EncoderMovement {
         BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        // IMU
+        imu = hardware.get(IMU.class, "imu");
+        parameters = new IMU.Parameters(
+                new RevHubOrientationOnRobot(
+                        RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+                        RevHubOrientationOnRobot.UsbFacingDirection.UP
+                )
+        );
+        imu.initialize(parameters);
+        robotOrientation = imu.getRobotYawPitchRollAngles();
 
     }
 
@@ -184,12 +205,12 @@ public class EncoderMovement {
      * This method will run immediately.
      * NOTE: THIS METHOD IS UNTESTED
      *
-     * @param angle     The distance (in inches) to move forwards
-     * @param speed     The speed at which the motor should spin (0.0 - 1.0)
+     * @param targetYaw       The angle at which the bot should face (-180 - +180)
+     * @param speed             The speed at which the motor should spin (0.0 - 1.0)
      */
-    public void turnClockwise(int angle, double speed) {
+    public void turnClockwise(int targetYaw, double speed) {
 
-        // Fetch motor positions
+        /*// Fetch motor positions
         getMotorPositions();
 
         // Calculate targets
@@ -207,6 +228,18 @@ public class EncoderMovement {
         }
 
         // Once completed, stop motors
+        endMovement();
+        */
+
+        double currentYaw = robotOrientation.getYaw(AngleUnit.DEGREES);
+        while (currentYaw != targetYaw) {
+            FrontLeft.setPower(speed);
+            FrontRight.setPower(speed);
+
+            FrontRight.setPower(-speed);
+            BackRight.setPower(-speed);
+        }
+
         endMovement();
     }
 

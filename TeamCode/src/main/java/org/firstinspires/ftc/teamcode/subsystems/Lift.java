@@ -67,7 +67,7 @@ public class Lift {
     private final TouchSensor bottom, top;
     private final Servo claw;
 
-    final double DROP_IDLE = 0.8;
+    final double DROP_IDLE = 0.85;
     final double DROP_DEPOSIT = 1.0;
 
     public Lift(HardwareMap hardware, Telemetry givenTelemetry) {
@@ -84,6 +84,7 @@ public class Lift {
 
         // Claw
         claw = hardware.servo.get("manipulator");
+
     }
 
     public enum LiftState {
