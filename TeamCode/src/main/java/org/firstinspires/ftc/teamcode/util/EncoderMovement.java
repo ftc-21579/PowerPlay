@@ -7,9 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
-import org.checkerframework.checker.units.qual.Angle;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 /**
@@ -17,20 +15,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
  */
 @Config
 public class EncoderMovement {
-    // TODO: Setup IMU for turning
-
     private final DcMotor FrontLeft, BackLeft, FrontRight, BackRight;
     private final Telemetry telemetry;
     private int flPos, blPos, frPos, brPos;
 
     // Config Vars
     public static double ticksPerInch = 57.3;
-    public static double ticksPerDeg = 13; // TODO: Verify this number
-
-    // IMU
-    private final IMU imu;
-    IMU.Parameters parameters;
-    YawPitchRollAngles robotOrientation;
+    public static double ticksPerDeg = 13;
 
     public EncoderMovement(HardwareMap hardware, Telemetry givenTelemetry) {
 
@@ -64,18 +55,6 @@ public class EncoderMovement {
         BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        // IMU
-        imu = hardware.get(IMU.class, "imu");
-        parameters = new IMU.Parameters(
-                new RevHubOrientationOnRobot(
-                        RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
-                        RevHubOrientationOnRobot.UsbFacingDirection.UP
-                )
-        );
-        imu.initialize(parameters);
-        robotOrientation = imu.getRobotYawPitchRollAngles();
-
     }
 
     //region Movement
