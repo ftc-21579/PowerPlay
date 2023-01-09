@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.util.EncoderMovement;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -28,6 +29,9 @@ import java.util.Locale;
 public class AutonAprilTagInitDetection extends LinearOpMode
 {
     private EncoderMovement movement;
+    private Lift lift;
+
+    public static double speed = 0.6;
 
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
@@ -61,6 +65,11 @@ public class AutonAprilTagInitDetection extends LinearOpMode
         FtcDashboard dashboard = FtcDashboard.getInstance();
 
         movement = new EncoderMovement(hardwareMap, telemetry);
+        lift = new Lift(hardwareMap, telemetry);
+        Lift.LiftState liftState = Lift.LiftState.LIFT_START;
+
+        boolean cycled = false;
+        boolean movedForward1 = false, turned1 = false, movedForward2 = false, turned2 = false, movedBackward = false, placed = false;
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
@@ -172,20 +181,45 @@ public class AutonAprilTagInitDetection extends LinearOpMode
         /* Actually do something useful */
         //region MOVEMENT
         // speed 0.4 is pretty good
+
+        while (!placed && opModeIsActive()) {
+            if (!movedForward1) {
+                movement.moveForward(50, speed);
+                movedForward1 = true;
+            } else if (movedForward1 && !turned1) {
+                movement.turnClockwise(43, speed);
+                turned1 = true;
+            } else if (movedForward1 && turned1 && !movedForward2) {
+                movement.moveForward(2, speed);
+                movedForward2 = true;
+            }   else if (movedForward1 && turned1 && movedForward2 && !cycled) {
+                lift.cycle();
+                cycled = true;
+            } else if (movedForward1 && turned1 && movedForward2 && cycled && !turned2) {
+                movement.turnCounterClockwise(40, speed);
+                turned2 = true;
+            } else if (movedForward1 && turned1 && movedForward2 && cycled && turned2 && !movedBackward) {
+                movement.moveForward(-26, speed);
+                movedBackward = true;
+            } else if (movedForward1 && turned1 && movedForward2 && cycled && turned2 && movedBackward && !placed) {
+                placed = true;
+            }
+        }
+
         if(tagOfInterest == null || tagOfInterest.id == LEFT){
-            movement.moveForward(26, 0.4);
+            //movement.moveForward(26, 0.4);
             movement.strafeLeft(28, 0.4);
         }else if(tagOfInterest.id == MIDDLE){
-            movement.moveForward(26, 0.4);
+            //movement.moveForward(26, 0.4);
         }else{
-            movement.moveForward(26, 0.4);
+            //movement.moveForward(26, 0.4);
             movement.strafeRight(28, 0.4);
         }
         //endregion
 
 
         /* You wouldn't have this in your autonomous, this is just to prevent the sample from ending */
-        while (opModeIsActive()) {sleep(20);}
+        //while (opModeIsActive()) {sleep(20);}
     }
 
     @SuppressLint("DefaultLocale")
