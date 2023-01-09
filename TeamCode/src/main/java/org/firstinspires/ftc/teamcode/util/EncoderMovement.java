@@ -25,7 +25,7 @@ public class EncoderMovement {
 
     // Config Vars
     public static double ticksPerInch = 57.3;
-    public static double ticksPerDeg = 2; // TODO: Verify this number
+    public static double ticksPerDeg = 13; // TODO: Verify this number
 
     // IMU
     private final IMU imu;
@@ -93,9 +93,9 @@ public class EncoderMovement {
         getMotorPositions();
 
         // Calculate targets
-        flPos += distance * ticksPerInch;
+        flPos -= distance * ticksPerInch;
         blPos += distance * ticksPerInch;
-        frPos += distance * ticksPerInch;
+        frPos -= distance * ticksPerInch;
         brPos += distance * ticksPerInch;
 
         // Begin Movement
@@ -203,20 +203,19 @@ public class EncoderMovement {
     /**
      * Will turn the robot clockwise based on parameters.
      * This method will run immediately.
-     * NOTE: THIS METHOD IS UNTESTED
      *
-     * @param targetYaw       The angle at which the bot should face (-180 - +180)
+     * @param angle       The angle at which the bot should face (-180 - +180)
      * @param speed             The speed at which the motor should spin (0.0 - 1.0)
      */
-    public void turnClockwise(int targetYaw, double speed) {
+    public void turnClockwise(int angle, double speed) {
 
-        /*// Fetch motor positions
+        // Fetch motor positions
         getMotorPositions();
 
         // Calculate targets
-        flPos += angle * ticksPerDeg;
+        flPos -= angle * ticksPerDeg;
         blPos += angle * ticksPerDeg;
-        frPos -= angle * ticksPerDeg;
+        frPos += angle * ticksPerDeg;
         brPos -= angle * ticksPerDeg;
 
         // Begin Movement
@@ -229,19 +228,35 @@ public class EncoderMovement {
 
         // Once completed, stop motors
         endMovement();
-        */
+    }
 
-        double currentYaw = robotOrientation.getYaw(AngleUnit.DEGREES);
-        while (currentYaw != targetYaw) {
-            FrontLeft.setPower(speed);
-            FrontRight.setPower(speed);
+    /**
+     * Will turn the robot clockwise based on parameters.
+     * This method will run immediately.
+     *
+     * @param angle       The angle at which the bot should face (-180 - +180)
+     * @param speed             The speed at which the motor should spin (0.0 - 1.0)
+     */
+    public void turnCounterClockwise(int angle, double speed) {
 
-            FrontRight.setPower(-speed);
-            BackRight.setPower(-speed);
+        // Fetch motor positions
+        getMotorPositions();
 
-            currentYaw = robotOrientation.getYaw(AngleUnit.DEGREES);
+        // Calculate targets
+        flPos += angle * ticksPerDeg;
+        blPos -= angle * ticksPerDeg;
+        frPos -= angle * ticksPerDeg;
+        brPos += angle * ticksPerDeg;
+
+        // Begin Movement
+        beginMovement(speed);
+
+        // Telemetry
+        while (motorsBusy()) {
+            outputTelemetry("Turn Counter Clockwise");
         }
 
+        // Once completed, stop motors
         endMovement();
     }
 

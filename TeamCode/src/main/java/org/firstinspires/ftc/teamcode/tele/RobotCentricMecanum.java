@@ -16,7 +16,7 @@ public class RobotCentricMecanum extends LinearOpMode {
 
     double vertPow, gripPos;
     boolean topPressed, bottomPressed = false;
-    double MIN_POSITION = 0.85, MAX_POSITION = 1;
+    double MIN_POSITION = 0.9, MAX_POSITION = 1;
 
     @Override
     public void runOpMode() throws InterruptedException {

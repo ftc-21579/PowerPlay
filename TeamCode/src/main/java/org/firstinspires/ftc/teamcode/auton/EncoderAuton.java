@@ -18,6 +18,7 @@ public class EncoderAuton extends LinearOpMode {
     private EncoderMovement movement;
     private Lift lift;
     private double liftSpeed = 0.5, DROP_TIME = 2.0;
+    public static double speed = 0.6;
 
     @Override
     public void runOpMode() {
@@ -27,56 +28,36 @@ public class EncoderAuton extends LinearOpMode {
         lift = new Lift(hardwareMap, telemetry);
         Lift.LiftState liftState = Lift.LiftState.LIFT_START;
 
-        ElapsedTime liftTimer = new ElapsedTime();
-        liftTimer.reset();
-
         waitForStart();
 
+        boolean cycled = false;
+        boolean movedForward1 = false, turned1 = false, movedForward2 = false, turned2 = false, movedBackward = false;
+
         while(opModeIsActive()) {
-            boolean cycled = false;
-            while(!cycled) {
-                switch (liftState) {
-                    case LIFT_START:
-                        if (!lift.atTop()) {
-                            lift.raise(liftSpeed);
-                            telemetry.addData("Status: ", "RAISING");
 
-                        } else {
-                            liftState = Lift.LiftState.LIFT_EXTEND;
-                        }
-                        break;
-                    case LIFT_EXTEND:
-                        if (lift.atTop()) {
-                            lift.stop();
-                            lift.release();
-                            telemetry.addData("Status: ", "RELEASING");
 
-                            liftTimer.reset();
-                            liftState = Lift.LiftState.LIFT_DROP;
-                        }
-                        break;
-                    case LIFT_DROP:
-                        if (liftTimer.seconds() >= DROP_TIME) {
-                            if (!lift.atBottom()) {
-                                lift.lower(liftSpeed);
-                                telemetry.addData("Status: ", "RETRACTING");
-                            } else {
-                                liftState = Lift.LiftState.LIFT_RETRACT;
-                            }
-                        }
-                        break;
-                    case LIFT_RETRACT:
-                        lift.stop();
-                        cycled = true;
-                        telemetry.addData("Status: ", "RETRACTED");
-                        break;
-                }
-                telemetry.update();
+            if (!movedForward1) {
+                movement.moveForward(50, speed);
+                movedForward1 = true;
+            } else if (movedForward1 && !turned1) {
+                movement.turnClockwise(43, speed);
+                turned1 = true;
+            } else if (movedForward1 && turned1 && !movedForward2) {
+                movement.moveForward(2, speed);
+                movedForward2 = true;
+            }   else if (movedForward1 && turned1 && movedForward2 && !cycled) {
+                lift.cycle();
+                cycled = true;
+            } else if (movedForward1 && turned1 && movedForward2 && cycled && !turned2) {
+                movement.turnCounterClockwise(40, speed);
+                turned2 = true;
+            } else if (movedForward1 && turned1 && movedForward2 && cycled && turned2 && !movedBackward) {
+                movement.moveForward(-26, speed);
+                movedBackward = true;
             }
 
-            movement.turnClockwise(90, 0.4);
 
-            stop();
+
 
         }
 
