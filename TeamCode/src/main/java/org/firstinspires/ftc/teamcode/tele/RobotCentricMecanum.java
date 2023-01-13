@@ -17,6 +17,7 @@ public class RobotCentricMecanum extends LinearOpMode {
     double vertPow, gripPos;
     boolean topPressed, bottomPressed = false;
     double MIN_POSITION = 0.9, MAX_POSITION = 1;
+    double multiplier = 1.0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -59,9 +60,13 @@ public class RobotCentricMecanum extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-            double y = -gamepad1.left_stick_y; // Remember, this is reversed!
-            double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
-            double rx = gamepad1.right_stick_x * 0.8;
+            if(gamepad1.left_trigger > 0.2 || gamepad1.right_trigger > 0.2 || gamepad1.left_bumper || gamepad1.right_bumper) {
+                multiplier = 0.5;
+            }
+
+            double y = -gamepad1.left_stick_y * multiplier; // Remember, this is reversed!
+            double x = gamepad1.left_stick_x * 1.1 * multiplier; // Counteract imperfect strafing
+            double rx = gamepad1.right_stick_x;
 
             double max = 1.0;
 
@@ -114,14 +119,6 @@ public class RobotCentricMecanum extends LinearOpMode {
             vertServo1.setPower(vertPow);
             telemetry.addData("gripPos", gripPos);
             telemetry.addData("vertPow", vertPow);
-
-            /* Doesnt Work
-            if (gamepad1.left_trigger > 0.2 || gamepad1.right_trigger > 0.2) {
-                max = 0.5;
-            } else {
-                max = 1.0;
-            }
-            */
 
             // Denominator is the largest motor power (absolute value) or 1
             // This ensures all the powers maintain the same ratio, but only when
