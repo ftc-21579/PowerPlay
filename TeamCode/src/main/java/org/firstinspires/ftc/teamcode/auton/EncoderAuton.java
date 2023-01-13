@@ -14,7 +14,7 @@ public class EncoderAuton extends LinearOpMode {
     private EncoderMovement movement;
     private Lift lift;
     private double liftSpeed = 0.5, DROP_TIME = 2.0;
-    public static double speed = 0.6;
+    public static double speed = 0.4;
 
     @Override
     public void runOpMode() {
@@ -31,7 +31,7 @@ public class EncoderAuton extends LinearOpMode {
 
         while(opModeIsActive()) {
 
-
+ 
             if (!movedForward1) {
                 movement.moveForward(50, speed);
                 movedForward1 = true;

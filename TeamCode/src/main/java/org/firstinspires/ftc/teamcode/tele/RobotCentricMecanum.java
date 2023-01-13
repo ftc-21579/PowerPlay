@@ -61,7 +61,7 @@ public class RobotCentricMecanum extends LinearOpMode {
         while (opModeIsActive()) {
             double y = -gamepad1.left_stick_y; // Remember, this is reversed!
             double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
-            double rx = gamepad1.right_stick_x;
+            double rx = gamepad1.right_stick_x * 0.8;
 
             double max = 1.0;
 
@@ -75,13 +75,20 @@ public class RobotCentricMecanum extends LinearOpMode {
             topPressed = top.isPressed();
 
             // Gripper
-            double gripPos = gripServo.getPosition();
+            if (gamepad2.a || gamepad2.x) {
+                gripPos -= 0.01;
+            }
+            if (gamepad2.b || gamepad2.y) {
+                gripPos += 0.01;
+            }
+            /*double gripPos = gripServo.getPosition();
             if (rBump) {
                 gripPos -= 0.01;
             }
             if (lBump) {
                 gripPos += 0.01;
             }
+            */
 
 
             telemetry.addData("botton", bottom.isPressed());
@@ -90,11 +97,17 @@ public class RobotCentricMecanum extends LinearOpMode {
             if (rTrigger > 0.2 && bottom.isPressed()) {
                 vertPow = 1.0;
             }
-            else if (lTrigger > 0.2 && top.isPressed()) {
+            else if (rBump && top.isPressed()) {
                 vertPow = -1.0;
             }
+            else if (lTrigger > 0.2 && bottom.isPressed()) {
+                vertPow = 0.5;
+            }
+            else if (lBump && top.isPressed()) {
+                vertPow = -0.5;
+            }
             else {
-                vertPow = 0.0;
+                vertPow = 0;
             }
 
             gripServo.setPosition(Range.clip(gripPos, MIN_POSITION, MAX_POSITION));
