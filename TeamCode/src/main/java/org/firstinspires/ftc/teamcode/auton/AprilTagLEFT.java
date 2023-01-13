@@ -31,6 +31,7 @@ public class AprilTagLEFT extends LinearOpMode
 
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
+    PoleObserverPipeline poleObserverPipeline;
 
     static final double FEET_PER_METER = 3.28084;
 
@@ -65,11 +66,14 @@ public class AprilTagLEFT extends LinearOpMode
         Lift.LiftState liftState = Lift.LiftState.LIFT_START;
 
         boolean cycled = false;
-        boolean movedForward1 = false, turned1 = false, movedForward2 = false, turned2 = false, movedBackward = false, placed = false;
+        boolean movedForward1 = false, turned1 = false, movedForward2 = false, turned2 = false, movedBackward = false, placed = false, aligned = false;
+        int turned = 0;
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
+
+        poleObserverPipeline = new PoleObserverPipeline(telemetry);
 
         camera.setPipeline(aprilTagDetectionPipeline);
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -160,6 +164,7 @@ public class AprilTagLEFT extends LinearOpMode
          * The START command just came in: now work off the latest snapshot acquired
          * during the init loop.
          */
+        camera.setPipeline(poleObserverPipeline);
 
         /* Update the telemetry */
         if(tagOfInterest != null)
@@ -188,16 +193,26 @@ public class AprilTagLEFT extends LinearOpMode
             } else if (movedForward1 && turned1 && !movedForward2) {
                 movement.moveForward(2, speed);
                 movedForward2 = true;
-            }   else if (movedForward1 && turned1 && movedForward2 && !cycled) {
+            } else if (movedForward1 && turned1 && movedForward2 && !aligned) {
+                if (poleObserverPipeline.getPosition() == "right") {
+                    movement.turnClockwise(2, speed);
+                    turned += 2;
+                } else if (poleObserverPipeline.getPosition() == "left") {
+                    movement.turnCounterClockwise(2, speed);
+                    turned -= 2;
+                } else if (poleObserverPipeline.getPosition() == "center") {
+                    aligned = true;
+                }
+            } else if (movedForward1 && turned1 && movedForward2 && aligned && !cycled) {
                 lift.cycle();
                 cycled = true;
-            } else if (movedForward1 && turned1 && movedForward2 && cycled && !turned2) {
-                movement.turnCounterClockwise(40, speed);
+            } else if (movedForward1 && turned1 && movedForward2 && aligned && cycled && !turned2) {
+                movement.turnCounterClockwise(43 + turned, speed);
                 turned2 = true;
-            } else if (movedForward1 && turned1 && movedForward2 && cycled && turned2 && !movedBackward) {
+            } else if (movedForward1 && turned1 && movedForward2 && aligned && cycled && turned2 && !movedBackward) {
                 movement.moveForward(-26, speed);
                 movedBackward = true;
-            } else if (movedForward1 && turned1 && movedForward2 && cycled && turned2 && movedBackward && !placed) {
+            } else if (movedForward1 && turned1 && movedForward2 && aligned && cycled && turned2 && movedBackward && !placed) {
                 placed = true;
             }
         }
