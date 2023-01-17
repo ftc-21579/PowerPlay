@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="MainDrive")
+@TeleOp(name="RobotCentric")
 public class RobotCentricMecanum extends LinearOpMode {
 
     double vertPow, gripPos;
@@ -44,7 +44,6 @@ public class RobotCentricMecanum extends LinearOpMode {
         DcMotor motorBackRight = hardwareMap.dcMotor.get("motorBackRight");
 
         // Reverse the right side motors
-        // Reverse left motors if you are using NeveRests
         motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -68,8 +67,6 @@ public class RobotCentricMecanum extends LinearOpMode {
             double x = gamepad1.left_stick_x * 1.1 * multiplier; // Counteract imperfect strafing
             double rx = gamepad1.right_stick_x;
 
-            double max = 1.0;
-
             Boolean rBump = gamepad2.right_bumper;
             Boolean lBump = gamepad2.left_bumper;
 
@@ -79,26 +76,17 @@ public class RobotCentricMecanum extends LinearOpMode {
             bottomPressed = bottom.isPressed();
             topPressed = top.isPressed();
 
+
             // Gripper
             if (gamepad2.a || gamepad2.x) {
-                gripPos -= 0.01;
+                gripPos = MIN_POSITION;
             }
             if (gamepad2.b || gamepad2.y) {
-                gripPos += 0.01;
+                gripPos = MAX_POSITION;
             }
-            /*double gripPos = gripServo.getPosition();
-            if (rBump) {
-                gripPos -= 0.01;
-            }
-            if (lBump) {
-                gripPos += 0.01;
-            }
-            */
 
 
-            telemetry.addData("botton", bottom.isPressed());
             // Vertical Slides
-
             if (rTrigger > 0.2 && bottom.isPressed()) {
                 vertPow = 1.0;
             }
@@ -123,7 +111,7 @@ public class RobotCentricMecanum extends LinearOpMode {
             // Denominator is the largest motor power (absolute value) or 1
             // This ensures all the powers maintain the same ratio, but only when
             // at least one is out of the range [-1, 1]
-            double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), max);
+            double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
             double frontLeftPower = (y + x + rx) / denominator;
             double backLeftPower = (y - x + rx) / denominator;
             double frontRightPower = (y - x - rx) / denominator;
@@ -138,8 +126,6 @@ public class RobotCentricMecanum extends LinearOpMode {
             motorBackLeft.setPower(backLeftPower);
             motorFrontRight.setPower(frontRightPower);
             motorBackRight.setPower(backRightPower);
-
-            dashboard.sendTelemetryPacket(packet);
         }
     }
 }

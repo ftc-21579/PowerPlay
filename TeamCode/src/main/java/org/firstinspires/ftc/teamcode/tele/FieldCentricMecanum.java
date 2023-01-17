@@ -10,14 +10,16 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp
-@Disabled
+@TeleOp(name="FieldCentric")
 public class FieldCentricMecanum extends LinearOpMode {
 
     double vertPow, gripPos;
-    double MIN_POSITION = 0, MAX_POSITION = 1;
+    boolean topPressed, bottomPressed = false;
+    double MIN_POSITION = 0.9, MAX_POSITION = 1;
+    double multiplier = 1.0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -31,7 +33,10 @@ public class FieldCentricMecanum extends LinearOpMode {
 
         // Vertical Servo
         CRServo vertServo1 = hardwareMap.crservo.get("vertical");
-        CRServo vertServo2 = hardwareMap.crservo.get("vertical2");
+
+        // Touch Sensors
+        TouchSensor bottom = hardwareMap.touchSensor.get("bottom");
+        TouchSensor top = hardwareMap.touchSensor.get("top");
 
         // Declare our motors
         // Make sure your ID's match your configuration
@@ -41,8 +46,7 @@ public class FieldCentricMecanum extends LinearOpMode {
         DcMotor motorBackRight = hardwareMap.dcMotor.get("motorBackRight");
 
         // Reverse the right side motors
-        // Reverse left motors if you are using NeveRests
-        motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Retrieve the IMU from the hardware map
@@ -59,15 +63,18 @@ public class FieldCentricMecanum extends LinearOpMode {
         gripPos = 0.5;
         vertPow = 0;
 
-        dashboard.sendTelemetryPacket(packet);
         waitForStart();
 
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
+            if(gamepad1.left_trigger > 0.2 || gamepad1.right_trigger > 0.2 || gamepad1.left_bumper || gamepad1.right_bumper) {
+                multiplier = 0.5;
+            }
+
             // Gamepad Inputs
-            double y = -gamepad1.left_stick_y; // Remember, this is reversed!
-            double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
+            double y = -gamepad1.left_stick_y * multiplier; // Remember, this is reversed!
+            double x = gamepad1.left_stick_x * 1.1 * multiplier; // Counteract imperfect strafing
             double rx = gamepad1.right_stick_x;
 
             Boolean rBump = gamepad2.right_bumper;
@@ -76,29 +83,38 @@ public class FieldCentricMecanum extends LinearOpMode {
             double rTrigger = gamepad2.right_trigger;
             double lTrigger = gamepad2.left_trigger;
 
+            bottomPressed = bottom.isPressed();
+            topPressed = top.isPressed();
+
+
             // Gripper
-            double gripPos = gripServo.getPosition();
-            if (rBump) {
-                gripPos -= 0.01;
+            if (gamepad2.a || gamepad2.x) {
+                gripPos = MIN_POSITION;
             }
-            if (lBump) {
-                gripPos += 0.01;
+            if (gamepad2.b || gamepad2.y) {
+                gripPos = MAX_POSITION;
             }
 
+
             // Vertical Slides
-            if (rTrigger > 0.2) {
+            if (rTrigger > 0.2 && bottom.isPressed()) {
                 vertPow = 1.0;
             }
-            else if (lTrigger > 0.2) {
+            else if (rBump && top.isPressed()) {
                 vertPow = -1.0;
             }
+            else if (lTrigger > 0.2 && bottom.isPressed()) {
+                vertPow = 0.5;
+            }
+            else if (lBump && top.isPressed()) {
+                vertPow = -0.5;
+            }
             else {
-                vertPow = 0.0;
+                vertPow = 0;
             }
 
             gripServo.setPosition(Range.clip(gripPos, MIN_POSITION, MAX_POSITION));
             vertServo1.setPower(vertPow);
-            vertServo2.setPower(-vertPow);
             telemetry.addData("gripPos", gripPos);
             telemetry.addData("vertPow", vertPow);
 
@@ -126,10 +142,6 @@ public class FieldCentricMecanum extends LinearOpMode {
             motorBackLeft.setPower(backLeftPower);
             motorFrontRight.setPower(frontRightPower);
             motorBackRight.setPower(backRightPower);
-
-
-
-            dashboard.sendTelemetryPacket(packet);
         }
     }
 }
