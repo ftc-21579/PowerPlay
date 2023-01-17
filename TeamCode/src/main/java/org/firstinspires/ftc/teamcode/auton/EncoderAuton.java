@@ -22,12 +22,14 @@ public class EncoderAuton extends LinearOpMode {
 
         movement = new EncoderMovement(hardwareMap, telemetry);
         lift = new Lift(hardwareMap, telemetry);
-        Lift.LiftState liftState = Lift.LiftState.LIFT_START;
+        //Lift.LiftState liftState = Lift.LiftState.LIFT_START;
 
         waitForStart();
 
         boolean cycled = false;
         boolean movedForward1 = false, turned1 = false, movedForward2 = false, turned2 = false, movedBackward = false;
+
+        lift.grab();
 
         while(opModeIsActive()) {
 
