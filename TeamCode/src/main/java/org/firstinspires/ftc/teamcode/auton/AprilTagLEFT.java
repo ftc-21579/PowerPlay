@@ -183,6 +183,8 @@ public class AprilTagLEFT extends LinearOpMode
         //region MOVEMENT
         // speed 0.4 is pretty good
 
+        lift.grab();
+
         while (!placed && opModeIsActive()) {
             if (!movedForward1) {
                 movement.moveForward(50, speed);
