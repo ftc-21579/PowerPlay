@@ -80,6 +80,7 @@ public class Lift {
                 case LIFT_EXTEND:
                     if (atTop()) {
                         stop();
+
                         release();
                         telemetry.addData("Status", "RELEASING");
 

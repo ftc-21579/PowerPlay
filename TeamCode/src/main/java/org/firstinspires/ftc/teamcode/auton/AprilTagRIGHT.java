@@ -27,7 +27,7 @@ public class AprilTagRIGHT extends LinearOpMode
     private EncoderMovement movement;
     private Lift lift;
 
-    public static double speed = 0.6;
+    public static double speed = 0.2;
 
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
@@ -209,7 +209,7 @@ public class AprilTagRIGHT extends LinearOpMode
                 lift.cycle();
                 cycled = true;
             } else if (movedForward1 && turned1 && movedForward2 && aligned && cycled && !turned2) {
-                movement.turnClockwise(40, speed);
+                movement.turnClockwise(45, speed);
                 turned2 = true;
             } else if (movedForward1 && turned1 && movedForward2 && aligned && cycled && turned2 && !movedBackward) {
                 movement.moveForward(-26, speed);
@@ -221,12 +221,12 @@ public class AprilTagRIGHT extends LinearOpMode
 
         if(tagOfInterest == null || tagOfInterest.id == LEFT){
             //movement.moveForward(26, 0.4);
-            movement.strafeLeft(28, 0.4);
+            movement.strafeLeft(30, 0.4);
         }else if(tagOfInterest.id == MIDDLE){
             //movement.moveForward(26, 0.4);
         }else{
             //movement.moveForward(26, 0.4);
-            movement.strafeRight(28, 0.4);
+            movement.strafeRight(34, 0.4);
         }
         //endregion
 

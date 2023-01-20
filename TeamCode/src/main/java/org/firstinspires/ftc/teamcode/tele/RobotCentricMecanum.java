@@ -62,10 +62,13 @@ public class RobotCentricMecanum extends LinearOpMode {
             if(gamepad1.left_trigger > 0.2 || gamepad1.right_trigger > 0.2 || gamepad1.left_bumper || gamepad1.right_bumper) {
                 multiplier = 0.5;
             }
+            else {
+                multiplier = 1.0;
+            }
 
             double y = -gamepad1.left_stick_y * multiplier; // Remember, this is reversed!
             double x = gamepad1.left_stick_x * 1.1 * multiplier; // Counteract imperfect strafing
-            double rx = gamepad1.right_stick_x;
+            double rx = gamepad1.right_stick_x * 0.6;
 
             Boolean rBump = gamepad2.right_bumper;
             Boolean lBump = gamepad2.left_bumper;
@@ -79,11 +82,12 @@ public class RobotCentricMecanum extends LinearOpMode {
 
             // Gripper
             if (gamepad2.a || gamepad2.x) {
-                gripPos = MIN_POSITION;
+                gripPos -= 0.1;
             }
             if (gamepad2.b || gamepad2.y) {
-                gripPos = MAX_POSITION;
+                gripPos += 0.1;
             }
+            gripPos = Range.clip(gripPos, MIN_POSITION, MAX_POSITION);
 
 
             // Vertical Slides

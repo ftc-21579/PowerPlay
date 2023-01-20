@@ -132,9 +132,9 @@ public class EncoderMovement {
         getMotorPositions();
 
         // Calculate targets
-        flPos += distance * ticksPerInch;
+        flPos -= distance * ticksPerInch;
         blPos -= distance * ticksPerInch;
-        frPos -= distance * ticksPerInch;
+        frPos += distance * ticksPerInch;
         brPos += distance * ticksPerInch;
 
         // Begin Movement
@@ -162,9 +162,9 @@ public class EncoderMovement {
         getMotorPositions();
 
         // Calculate targets
-        flPos -= distance * ticksPerInch;
+        flPos += distance * ticksPerInch;
         blPos += distance * ticksPerInch;
-        frPos += distance * ticksPerInch;
+        frPos -= distance * ticksPerInch;
         brPos -= distance * ticksPerInch;
 
         // Begin Movement
