@@ -27,7 +27,7 @@ public class AprilTagLEFT extends LinearOpMode
     private EncoderMovement movement;
     private Lift lift;
 
-    public static double speed = 0.4;
+    public static double speed = 0.2;
 
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
@@ -187,17 +187,17 @@ public class AprilTagLEFT extends LinearOpMode
 
         while (!placed && opModeIsActive()) {
             if (!movedForward1) {
-                movement.moveForward(50, speed);
+                movement.moveForward(51, speed);
                 movedForward1 = true;
             } else if (movedForward1 && !turned1) {
                 movement.turnClockwise(43, speed);
                 turned1 = true;
             } else if (movedForward1 && turned1 && !movedForward2) {
-                //movement.moveForward(2, speed);
+                movement.moveForward(2, speed);
                 movedForward2 = true;
             } else if (movedForward1 && turned1 && movedForward2 && !aligned) {
                 if (poleObserverPipeline.getPosition() == "right") {
-                    movement.turnClockwise(2, speed);
+                    movement.turnClockwise(1, speed);
                     turned += 2;
                 } else if (poleObserverPipeline.getPosition() == "left") {
                     movement.turnCounterClockwise(2, speed);
@@ -210,10 +210,10 @@ public class AprilTagLEFT extends LinearOpMode
                 cycled = true;
             } else if (movedForward1 && turned1 && movedForward2 && aligned && cycled && !turned2) {
                 int turn_dist = 43 + turned;
-                movement.turnCounterClockwise(45, speed);
+                movement.turnCounterClockwise(42, speed);
                 turned2 = true;
             } else if (movedForward1 && turned1 && movedForward2 && aligned && cycled && turned2 && !movedBackward) {
-                movement.moveForward(-26, speed);
+                movement.moveForward(-25, speed);
                 movedBackward = true;
             } else if (movedForward1 && turned1 && movedForward2 && aligned && cycled && turned2 && movedBackward && !placed) {
                 placed = true;
@@ -227,7 +227,7 @@ public class AprilTagLEFT extends LinearOpMode
             //movement.moveForward(26, 0.4);
         }else{
             //movement.moveForward(26, 0.4);
-            movement.strafeRight(30, 0.4);
+            movement.strafeRight(27, 0.4);
         }
         //endregion
 

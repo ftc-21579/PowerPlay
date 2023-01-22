@@ -187,13 +187,13 @@ public class AprilTagRIGHT extends LinearOpMode
 
         while (!placed && opModeIsActive()) {
             if (!movedForward1) {
-                movement.moveForward(50, speed);
+                movement.moveForward(51, speed);
                 movedForward1 = true;
             } else if (movedForward1 && !turned1) {
                 movement.turnCounterClockwise(43, speed);
                 turned1 = true;
             } else if (movedForward1 && turned1 && !movedForward2) {
-                movement.moveForward(2, speed);
+                movement.moveForward(1, speed);
                 movedForward2 = true;
             } else if (movedForward1 && turned1 && movedForward2 && !aligned) {
                 if (poleObserverPipeline.getPosition() == "right") {
@@ -212,7 +212,7 @@ public class AprilTagRIGHT extends LinearOpMode
                 movement.turnClockwise(45, speed);
                 turned2 = true;
             } else if (movedForward1 && turned1 && movedForward2 && aligned && cycled && turned2 && !movedBackward) {
-                movement.moveForward(-26, speed);
+                movement.moveForward(-25, speed);
                 movedBackward = true;
             } else if (movedForward1 && turned1 && movedForward2 && aligned && cycled && turned2 && movedBackward && !placed) {
                 placed = true;
