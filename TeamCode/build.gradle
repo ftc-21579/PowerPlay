@@ -17,6 +17,10 @@ apply from: '../build.dependencies.gradle'
 
 android {
     namespace = 'org.firstinspires.ftc.teamcode'
+
+    packagingOptions {
+        jniLibs.useLegacyPackaging true
+    }
 }
 
 dependencies {
@@ -26,5 +30,8 @@ dependencies {
 
 dependencies {
     implementation 'org.openftc:easyopencv:1.5.2'
+}
+
+dependencies {
     implementation 'org.openftc:apriltag:1.1.0'
 }

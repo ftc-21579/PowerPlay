@@ -3,27 +3,35 @@ package org.firstinspires.ftc.teamcode.auton;
 import android.annotation.SuppressLint;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.subsystems.Lift;
+import org.firstinspires.ftc.teamcode.util.EncoderMovement;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 
 // Credit: OpenFTC for a lot
-@Autonomous
-public class AutonAprilTagInitDetection extends LinearOpMode
+@Config
+@Autonomous(name="Parking LEFT SIDE")
+public class AprilTagLEFT extends LinearOpMode
 {
+    private EncoderMovement movement;
+    private Lift lift;
+
+    public static double speed = 0.2;
+
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
+    PoleObserverPipeline poleObserverPipeline;
 
     static final double FEET_PER_METER = 3.28084;
 
@@ -49,12 +57,23 @@ public class AutonAprilTagInitDetection extends LinearOpMode
     @Override
     public void runOpMode()
     {
+        telemetry.setAutoClear(true);
         TelemetryPacket packet = new TelemetryPacket();
         FtcDashboard dashboard = FtcDashboard.getInstance();
+
+        movement = new EncoderMovement(hardwareMap, telemetry);
+        lift = new Lift(hardwareMap, telemetry);
+        Lift.LiftState liftState = Lift.LiftState.LIFT_START;
+
+        boolean cycled = false;
+        boolean movedForward1 = false, turned1 = false, movedForward2 = false, turned2 = false, movedBackward = false, placed = false, aligned = false;
+        int turned = 0;
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
+
+        poleObserverPipeline = new PoleObserverPipeline(telemetry);
 
         camera.setPipeline(aprilTagDetectionPipeline);
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -145,6 +164,7 @@ public class AutonAprilTagInitDetection extends LinearOpMode
          * The START command just came in: now work off the latest snapshot acquired
          * during the init loop.
          */
+        camera.setPipeline(poleObserverPipeline);
 
         /* Update the telemetry */
         if(tagOfInterest != null)
@@ -160,17 +180,60 @@ public class AutonAprilTagInitDetection extends LinearOpMode
         }
 
         /* Actually do something useful */
-        if(tagOfInterest == null || tagOfInterest.id == LEFT){
-            //trajectory
-        }else if(tagOfInterest.id == MIDDLE){
-            //trajectory
-        }else{
-            //trajectory
+        //region MOVEMENT
+        // speed 0.4 is pretty good
+
+        lift.grab();
+
+        while (!placed && opModeIsActive()) {
+            if (!movedForward1) {
+                movement.moveForward(51, speed);
+                movedForward1 = true;
+            } else if (movedForward1 && !turned1) {
+                movement.turnClockwise(43, speed);
+                turned1 = true;
+            } else if (movedForward1 && turned1 && !movedForward2) {
+                movement.moveForward(2, speed);
+                movedForward2 = true;
+            } else if (movedForward1 && turned1 && movedForward2 && !aligned) {
+                if (poleObserverPipeline.getPosition() == "right") {
+                    movement.turnClockwise(1, speed);
+                    turned += 2;
+                } else if (poleObserverPipeline.getPosition() == "left") {
+                    movement.turnCounterClockwise(2, speed);
+                    turned -= 2;
+                } else if (poleObserverPipeline.getPosition() == "center") {
+                    aligned = true;
+                }
+            } else if (movedForward1 && turned1 && movedForward2 && aligned && !cycled) {
+                lift.cycle();
+                cycled = true;
+            } else if (movedForward1 && turned1 && movedForward2 && aligned && cycled && !turned2) {
+                int turn_dist = 43 + turned;
+                movement.turnCounterClockwise(42, speed);
+                turned2 = true;
+            } else if (movedForward1 && turned1 && movedForward2 && aligned && cycled && turned2 && !movedBackward) {
+                movement.moveForward(-25, speed);
+                movedBackward = true;
+            } else if (movedForward1 && turned1 && movedForward2 && aligned && cycled && turned2 && movedBackward && !placed) {
+                placed = true;
+            }
         }
+
+        if(tagOfInterest == null || tagOfInterest.id == LEFT){
+            //movement.moveForward(26, 0.4);
+            movement.strafeLeft(34, 0.4);
+        }else if(tagOfInterest.id == MIDDLE){
+            //movement.moveForward(26, 0.4);
+        }else{
+            //movement.moveForward(26, 0.4);
+            movement.strafeRight(27, 0.4);
+        }
+        //endregion
 
 
         /* You wouldn't have this in your autonomous, this is just to prevent the sample from ending */
-        while (opModeIsActive()) {sleep(20);}
+        //while (opModeIsActive()) {sleep(20);}
     }
 
     @SuppressLint("DefaultLocale")
@@ -193,4 +256,5 @@ public class AutonAprilTagInitDetection extends LinearOpMode
         packet.put("Translation Y", String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
         packet.put("Translation Z", String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
     }
+
 }
