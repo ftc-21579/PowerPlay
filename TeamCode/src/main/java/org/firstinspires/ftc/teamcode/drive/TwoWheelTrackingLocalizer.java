@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class TwoWheelTrackingLocalizer extends TwoTrackingWheelLocalizer {
     public static double TICKS_PER_REV = 8192;
-    public static double WHEEL_RADIUS = 1.37795; // in
+    public static double WHEEL_RADIUS = 0.6889764; // in
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (encoder) speed
 
     // TODO: DO THIS https://learnroadrunner.com/dead-wheels.html#two-wheel-odometry FOR THE WHEELS
