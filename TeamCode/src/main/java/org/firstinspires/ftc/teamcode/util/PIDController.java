@@ -5,10 +5,14 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class PIDController {
 
     private double Kp, Ki, Kd;
     private double integralSum, lastError;
+
+    Telemetry telemetry;
 
     ElapsedTime timer = new ElapsedTime();
 
@@ -18,10 +22,12 @@ public class PIDController {
      * @param Ki Integral coefficient
      * @param Kd Derivative coefficient
      */
-    public PIDController(double Kp, double Ki, double Kd) {
+    public PIDController(double Kp, double Ki, double Kd, Telemetry givenTelemetry) {
         this.Kp = Kp;
         this.Ki = Ki;
         this.Kd = Kd;
+
+        telemetry = givenTelemetry;
     }
 
     /**
@@ -42,6 +48,9 @@ public class PIDController {
         integralSum = Ki + (error * timer.seconds());
 
         double out = (Kp * error) + (Ki * integralSum) + (Kd * derivative);
+
+        telemetry.addData("Target", target);
+        telemetry.addData("State", state);
 
         return(out);
     }
