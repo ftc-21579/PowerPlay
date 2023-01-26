@@ -38,6 +38,8 @@ public class PIDController {
      */
     public double update(double target, double state) {
 
+        state = -state;
+
         // Calculate error
         double error = target - state;
 
