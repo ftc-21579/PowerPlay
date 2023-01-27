@@ -90,7 +90,7 @@ public class RobotCentricMecanum extends LinearOpMode {
             double x = gamepad1.left_stick_x * 1.1 * multiplier; // Counteract imperfect strafing
             double rx = gamepad1.right_stick_x * 0.6;
 
-            Boolean manual = gamepad2.left_stick_button;
+            Boolean manual = false;
 
             Boolean rBump = gamepad2.right_bumper;
             Boolean lBump = gamepad2.left_bumper;
@@ -131,6 +131,15 @@ public class RobotCentricMecanum extends LinearOpMode {
                 targetInches = 17;
             } else if (gamepad2.dpad_left) {
                 targetInches = 0;
+            }
+
+            if (gamepad2.guide) {
+                if (manual) {
+                    manual = false;
+                }
+                else {
+                    manual = true;
+                }
             }
 
             // Vertical Slides
