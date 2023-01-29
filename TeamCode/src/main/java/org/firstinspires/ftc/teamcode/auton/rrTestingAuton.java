@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -33,23 +34,35 @@ public class rrTestingAuton extends LinearOpMode {
     @Override
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(0, 0, Math.toRadians(90)); // Set start pose to center of the field, facing north
+        Pose2d startPose = new Pose2d(-35, -62, Math.toRadians(90)); // Set start pose to center of the field, facing north
         drive.setPoseEstimate(startPose);
 
         liftEncoder = hardwareMap.get(DcMotorEx.class, "motorFrontRight");
         liftMotor = hardwareMap.crservo.get("vertical"); // Ensure Spark Mini is on Braking
+
+        Servo guide = hardwareMap.servo.get("guide");
+        Servo gripServo = hardwareMap.servo.get("manipulator");
+
 
         liftEncoder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
        // liftEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
-                .forward(24)
-                .turn(Math.toRadians(90))
                 .addDisplacementMarker(() -> {
                     targetInches = 37;
                 })
-                .strafeRight(24)
+                .lineToLinearHeading(new Pose2d(-35, -10, Math.toRadians(45)))
+                .addDisplacementMarker(() -> {
+                    guide.setPosition(0.33);
+                })
+                .waitSeconds(0.25)
+                .addDisplacementMarker(() -> {
+                    gripServo.setPosition(0.9);
+                    guide.setPosition(0.0);
+                    targetInches = 0;
+                })
+                .turn(Math.toRadians(45))
                 .build();
 
         waitForStart();
