@@ -104,14 +104,15 @@ public class rrTestingAuton extends OpMode {
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
                 .addDisplacementMarker(() -> {
+                    gripServo.setPosition(1.0);
                     targetInches = 37;
                 })
                 .lineToLinearHeading(new Pose2d(-35, -10, Math.toRadians(45)))
-                .addDisplacementMarker(() -> {
+                .addTemporalMarker(() -> {
                     guide.setPosition(0.33);
                 })
-                .waitSeconds(0.25)
-                .addDisplacementMarker(() -> {
+                .waitSeconds(2)
+                .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                     guide.setPosition(0.0);
                     targetInches = 0;
@@ -119,7 +120,7 @@ public class rrTestingAuton extends OpMode {
                 .turn(Math.toRadians(45))
                 .build();
 
-        drive.followTrajectorySequence(trajSeq);
+        drive.followTrajectorySequenceAsync(trajSeq);
     }
 
     @Override
