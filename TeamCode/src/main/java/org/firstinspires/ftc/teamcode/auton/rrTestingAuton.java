@@ -19,9 +19,6 @@ import org.firstinspires.ftc.teamcode.util.PIDController;
 @Autonomous(name="RR Testing")
 public class rrTestingAuton extends LinearOpMode {
 
-    SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-    Pose2d startPose = new Pose2d(0, 0, Math.toRadians(90)); // Set start pose to center of the field, facing north
-
     public static double Kp = 0.01, Ki = 0, Kd = 0;
     public static int targetInches = 0;
 
@@ -35,6 +32,10 @@ public class rrTestingAuton extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        Pose2d startPose = new Pose2d(0, 0, Math.toRadians(90)); // Set start pose to center of the field, facing north
+        drive.setPoseEstimate(startPose);
+
         liftEncoder = hardwareMap.get(DcMotorEx.class, "motorFrontRight");
         liftMotor = hardwareMap.crservo.get("vertical"); // Ensure Spark Mini is on Braking
 
