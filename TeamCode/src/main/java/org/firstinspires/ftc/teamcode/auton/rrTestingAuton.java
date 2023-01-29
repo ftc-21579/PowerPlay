@@ -40,7 +40,7 @@ public class rrTestingAuton extends LinearOpMode {
         liftMotor = hardwareMap.crservo.get("vertical"); // Ensure Spark Mini is on Braking
 
         liftEncoder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        liftEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+       // liftEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
