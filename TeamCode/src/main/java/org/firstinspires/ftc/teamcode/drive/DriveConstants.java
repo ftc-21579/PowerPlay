@@ -83,7 +83,7 @@ public class DriveConstants {
      * actual testing. Just set it at a reasonable value and keep increasing until your path following starts
      * to degrade. As of now, it simply mirrors the velocity, resulting in 68.68630522954005 in/s/s
      *
-     * Maximum Angular Velocity is calculated as: maximum velocity / trackWidth * (180 / Math.PI) but capped at 360°/s.
+     * Maximum Angular Velocity is calculated as: maximum velocity / trackWidth * (180 / Math.PI) but capped at 360Â°/s.
      * You are free to raise this on your own if you would like. It is best determined through experimentation.
 
      */

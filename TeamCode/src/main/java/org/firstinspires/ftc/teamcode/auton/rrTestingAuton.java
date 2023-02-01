@@ -26,7 +26,7 @@ public class rrTestingAuton extends LinearOpMode {
     Telemetry dashboardTelemetry = dashboard.getTelemetry();
 
     DcMotorEx liftEncoder;
-    CRServo liftMotor;
+    //CRServo liftMotor;
 
     PIDController control = new PIDController(Kp, Ki, Kd, dashboardTelemetry);
 
@@ -37,14 +37,14 @@ public class rrTestingAuton extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         liftEncoder = hardwareMap.get(DcMotorEx.class, "motorFrontRight");
-        liftMotor = hardwareMap.crservo.get("vertical"); // Ensure Spark Mini is on Braking
+        //liftMotor = hardwareMap.crservo.get("vertical"); // Ensure Spark Mini is on Braking
 
         Servo guide = hardwareMap.servo.get("guide");
         Servo gripServo = hardwareMap.servo.get("manipulator");
 
 
         liftEncoder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        liftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        //liftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
                 .addDisplacementMarker(() -> {
@@ -77,7 +77,7 @@ public class rrTestingAuton extends LinearOpMode {
             command = Range.clip(command, -1, 1);
             // Assign PID output
             dashboardTelemetry.addData("Command", command);
-            liftMotor.setPower(command);
+            //liftMotor.setPower(command);
 
             dashboardTelemetry.update();
         }
