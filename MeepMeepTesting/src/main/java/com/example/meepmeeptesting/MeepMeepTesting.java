@@ -54,6 +54,51 @@ public class MeepMeepTesting {
                                 .addTemporalMarker(() -> {
 
                                 })
+                                .back(2)
+                                .turn(Math.toRadians(135))
+                                .forward(25)
+                                .addTemporalMarker(() -> {
+
+                                })
+                                .waitSeconds(0.5)
+                                .addTemporalMarker(() -> {
+
+                                })
+                                .back(6)
+                                .addTemporalMarker(() -> {
+
+                                })
+                                .lineToLinearHeading(scorePose)
+                                .addTemporalMarker(() -> {
+
+                                })
+                                .waitSeconds(1.25)
+                                .addTemporalMarker(() -> {
+
+                                })
+                                .back(2)
+                                .turn(Math.toRadians(135))
+                                .forward(25)
+                                .addTemporalMarker(() -> {
+
+                                })
+                                .waitSeconds(0.5)
+                                .addTemporalMarker(() -> {
+
+                                })
+                                .back(6)
+                                .addTemporalMarker(() -> {
+
+                                })
+                                .lineToLinearHeading(scorePose)
+                                .addTemporalMarker(() -> {
+
+                                })
+                                .waitSeconds(1.25)
+                                .addTemporalMarker(() -> {
+
+                                })
+                                .turn(Math.toRadians(45))
                                 .build()
                 );
 

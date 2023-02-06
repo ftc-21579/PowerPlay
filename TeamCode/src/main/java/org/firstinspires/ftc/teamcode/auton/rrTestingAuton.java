@@ -86,8 +86,59 @@ public class rrTestingAuton extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                     guide.setPosition(0.33);
-                    targetInches = 7;
+                    targetInches = 5;
                 })
+                .back(2)
+                .turn(Math.toRadians(140))
+                .forward(25)
+                .addTemporalMarker(() -> {
+                    gripServo.setPosition(1.0);
+                })
+                .waitSeconds(0.5)
+                .addTemporalMarker(() -> {
+                    targetInches = 10;
+                })
+                .waitSeconds(0.5)
+                .back(6)
+                .addTemporalMarker(() -> {
+                    targetInches = 37;
+                })
+                .lineToLinearHeading(scorePose)
+                .addTemporalMarker(() -> {
+                    guide.setPosition(0.0);
+                })
+                .waitSeconds(1.25)
+                .addTemporalMarker(() -> {
+                    gripServo.setPosition(0.9);
+                    guide.setPosition(0.33);
+                    targetInches = 3;
+                })
+                .back(2)
+                .turn(Math.toRadians(140))
+                .forward(25)
+                .addTemporalMarker(() -> {
+                    gripServo.setPosition(1.0);
+                })
+                .waitSeconds(0.5)
+                .addTemporalMarker(() -> {
+                    targetInches = 8;
+                })
+                .waitSeconds(0.5)
+                .back(6)
+                .addTemporalMarker(() -> {
+                    targetInches = 37;
+                })
+                .lineToLinearHeading(scorePose)
+                .addTemporalMarker(() -> {
+                    guide.setPosition(0.0);
+                })
+                .waitSeconds(1.25)
+                .addTemporalMarker(() -> {
+                    gripServo.setPosition(0.9);
+                    guide.setPosition(0.33);
+                    targetInches = 0;
+                })
+                .turn(Math.toRadians(45))
                 .build();
 
         drive.followTrajectorySequenceAsync(trajSeq);
