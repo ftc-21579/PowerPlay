@@ -105,7 +105,7 @@ public class RobotCentricMecanum extends LinearOpMode {
             // Gripper
             if (gamepad2.a) {
                 gripPos -= 0.1;
-                guide.setPosition(0.0);
+                guide.setPosition(0.33);
             }
             if (gamepad2.b) {
                 gripPos += 0.1;
@@ -115,11 +115,11 @@ public class RobotCentricMecanum extends LinearOpMode {
 
             // Guide
             if (gamepad2.x) {
-                guide.setPosition(0.0);
-                telemetry.addData("Guide Pos", 0);
-            } else if (gamepad2.y) {
                 guide.setPosition(0.33);
                 telemetry.addData("Guide Pos", 0.33);
+            } else if (gamepad2.y) {
+                guide.setPosition(0.0);
+                telemetry.addData("Guide Pos", 0.0);
             }
 
             // Auto heights
