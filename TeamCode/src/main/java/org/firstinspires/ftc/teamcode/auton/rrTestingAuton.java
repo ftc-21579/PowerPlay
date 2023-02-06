@@ -36,6 +36,8 @@ public class rrTestingAuton extends LinearOpMode {
         Pose2d startPose = new Pose2d(-35, -62, Math.toRadians(90)); // Set start pose to center of the field, facing north
         drive.setPoseEstimate(startPose);
 
+        Pose2d scorePose = new Pose2d(-35, -10, Math.toRadians(45));
+
         liftEncoder = hardwareMap.get(DcMotorEx.class, "motorFrontRight");
         liftMotor = hardwareMap.crservo.get("vertical"); // Ensure Spark Mini is on Braking
 
@@ -51,20 +53,41 @@ public class rrTestingAuton extends LinearOpMode {
                     gripServo.setPosition(1.0);
                     targetInches = 37;
                 })
-                .lineToLinearHeading(new Pose2d(-35, -10, Math.toRadians(45)))
+                .lineToLinearHeading(scorePose)
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
-                .waitSeconds(2)
+                .waitSeconds(1.25)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                     guide.setPosition(0.33);
-                    targetInches = 0;
+                    targetInches = 7;
                 })
                 .back(2)
                 .turn(Math.toRadians(140))
                 .forward(25)
-                //.lineToLinearHeading(new Pose2d(-60, -11.75, Math.toRadians(180)))
+                .addTemporalMarker(() -> {
+                    gripServo.setPosition(1.0);
+                })
+                .waitSeconds(0.5)
+                .addTemporalMarker(() -> {
+                    targetInches = 12;
+                })
+                .waitSeconds(0.5)
+                .back(6)
+                .addTemporalMarker(() -> {
+                    targetInches = 37;
+                })
+                .lineToLinearHeading(scorePose)
+                .addTemporalMarker(() -> {
+                    guide.setPosition(0.0);
+                })
+                .waitSeconds(1.25)
+                .addTemporalMarker(() -> {
+                    gripServo.setPosition(0.9);
+                    guide.setPosition(0.33);
+                    targetInches = 7;
+                })
                 .build();
 
         drive.followTrajectorySequenceAsync(trajSeq);

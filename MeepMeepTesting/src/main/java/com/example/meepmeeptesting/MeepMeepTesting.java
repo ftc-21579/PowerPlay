@@ -13,6 +13,7 @@ import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 public class MeepMeepTesting {
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(800);
+        Pose2d scorePose = new Pose2d(-35, -10, Math.toRadians(45));
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
@@ -20,81 +21,39 @@ public class MeepMeepTesting {
                 .setDimensions(13, 18)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(-35, -62, Math.toRadians(90)))
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
 
-                                    // Lift up
-                                    // Lift slightly down to get closer
-                                    // Release claw
                                 })
-                                .lineToLinearHeading(new Pose2d(-35, -10, Math.toRadians(45))) // Move to align with pole
-                                .waitSeconds(1.5) // Simulate lift
-                                .back(2.5) // Back away from pole/align with stack
-                                .addDisplacementMarker(() -> {
-                                    // Lift all the way down to height for cone
+                                .lineToLinearHeading(scorePose)
+                                .addTemporalMarker(() -> {
+
                                 })
-                                .turn(Math.toRadians(135)) // Turn to face cone stack
-                                //.setVelConstraint(SampleMecanumDrive.getVelocityConstraint(15, Math.toRadians(308.9955575516127), 12.73622)) // 15in/s
-                                .resetVelConstraint()
-                                .forward(20) // Get closer to stack
-                                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(5, Math.toRadians(308.9955575516127), 12.73622)) // 5in/s
-                                .forward(4) // get right on stack
-                                .addDisplacementMarker(() -> {
-                                    // Close claw
-                                    // Lift up a little bit
+                                .waitSeconds(1.25)
+                                .addTemporalMarker(() -> {
+
                                 })
-                                .waitSeconds(1) // Simulate lift
-                                .back(4) // Slowly away from stack
-                                //.setVelConstraint(SampleMecanumDrive.getVelocityConstraint(15, Math.toRadians(308.9955575516127), 12.73622)) // 15in/s
-                                .resetVelConstraint()
-                                .addDisplacementMarker(() -> {
-                                    // Lift all the way up
+                                .back(2)
+                                .turn(Math.toRadians(135))
+                                .forward(25)
+                                .addTemporalMarker(() -> {
+
                                 })
-                                //.waitSeconds(2.5) // Simulate lift
-                                .back(22) // Back towards pole
-                                .resetVelConstraint() // Back to 60in/s
-                                .turn(Math.toRadians(-135)) // Turn to face pole
-                                .forward(2.5) // Get closer to pole
-                                .addDisplacementMarker(() -> {
-                                    // Lift down a little
-                                    // Release cone
+                                .waitSeconds(0.5)
+                                .addTemporalMarker(() -> {
+
                                 })
-                                .waitSeconds(1) // Simulate lift
-                                .back(2.5) // Back away from pole/align with stack
-                                .addDisplacementMarker(() -> {
-                                    // Lift all the way down
+                                .back(6)
+                                .addTemporalMarker(() -> {
+
                                 })
-                                .turn(Math.toRadians(135)) // Turn to face cone stack
-                                //.setVelConstraint(SampleMecanumDrive.getVelocityConstraint(15, Math.toRadians(308.9955575516127), 12.73622)) // 15in/s
-                                .resetVelConstraint()
-                                .forward(22) // Get closer to stack
-                                .setVelConstraint(SampleMecanumDrive.getVelocityConstraint(5, Math.toRadians(308.9955575516127), 12.73622)) // 5in/s
-                                .forward(4) // get right on stack
-                                .addDisplacementMarker(() -> {
-                                    // Close claw
-                                    // Lift up a little bit
+                                .lineToLinearHeading(scorePose)
+                                .addTemporalMarker(() -> {
+
                                 })
-                                .waitSeconds(1) // Simulate lift
-                                .back(4) // Slowly away from stack
-                                //.setVelConstraint(SampleMecanumDrive.getVelocityConstraint(15, Math.toRadians(308.9955575516127), 12.73622)) // 15in/s
-                                .resetVelConstraint()
-                                .addDisplacementMarker(() -> {
-                                    // Lift all the way up
+                                .waitSeconds(1.25)
+                                .addTemporalMarker(() -> {
+
                                 })
-                                .back(22) // Back towards pole
-                                .turn(Math.toRadians(-135)) // Turn to face pole
-                                .forward(2.5) // Get closer to pole
-                                .addDisplacementMarker(() -> {
-                                    // Lift down a little
-                                    // Release cone
-                                })
-                                .waitSeconds(1.5) // Simulate lift
-                                .back(2.5)
-                                .addDisplacementMarker(() -> {
-                                    // Lift all the way down
-                                })
-                                .resetVelConstraint() // 60in/s
-                                .turn(Math.toRadians(45))
-                                .strafeLeft(26)
                                 .build()
                 );
 
