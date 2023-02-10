@@ -36,7 +36,7 @@ public class rrTestingAuton extends LinearOpMode {
         Pose2d startPose = new Pose2d(-35, -62, Math.toRadians(90)); // Set start pose to center of the field, facing north
         drive.setPoseEstimate(startPose);
 
-        Pose2d scorePose = new Pose2d(-35, -10, Math.toRadians(45));
+        Pose2d scorePose = new Pose2d(-35, -10, Math.toRadians(35));
 
         liftEncoder = hardwareMap.get(DcMotorEx.class, "motorFrontRight");
         liftMotor = hardwareMap.crservo.get("vertical"); // Ensure Spark Mini is on Braking
@@ -53,7 +53,8 @@ public class rrTestingAuton extends LinearOpMode {
                     gripServo.setPosition(1.0);
                     targetInches = 37;
                 })
-                .lineToLinearHeading(scorePose)
+                .forward(32)
+                .lineToLinearHeading(new Pose2d(-35, -10, Math.toRadians(45)))
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
