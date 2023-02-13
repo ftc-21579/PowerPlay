@@ -90,7 +90,7 @@ public class rrTestingAuton extends LinearOpMode {
                     targetInches = 5;
                 })
                 .back(2)
-                .turn(Math.toRadians(140))
+                .turn(Math.toRadians(150))
                 .forward(25)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
@@ -115,7 +115,7 @@ public class rrTestingAuton extends LinearOpMode {
                     targetInches = 3;
                 })
                 .back(2)
-                .turn(Math.toRadians(140))
+                .turn(Math.toRadians(150))
                 .forward(25)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
