@@ -66,7 +66,7 @@ public class rrTestingAuton extends LinearOpMode {
                 })
                 .back(2)
                 .turn(Math.toRadians(140))
-                .forward(25)
+                .forward(24)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
                 })
@@ -91,7 +91,7 @@ public class rrTestingAuton extends LinearOpMode {
                 })
                 .back(2)
                 .turn(Math.toRadians(150))
-                .forward(25)
+                .forward(24)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
                 })
@@ -116,7 +116,7 @@ public class rrTestingAuton extends LinearOpMode {
                 })
                 .back(2)
                 .turn(Math.toRadians(150))
-                .forward(25)
+                .forward(24)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
                 })
