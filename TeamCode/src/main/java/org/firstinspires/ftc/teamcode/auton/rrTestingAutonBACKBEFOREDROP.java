@@ -58,7 +58,7 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
-                .waitSeconds(1)
+                .waitSeconds(.5)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                 })
@@ -86,7 +86,7 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
-                .waitSeconds(1)
+                .waitSeconds(.5)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                 })
@@ -114,7 +114,7 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
-                .waitSeconds(1)
+                .waitSeconds(.5)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                 })
@@ -142,7 +142,7 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
-                .waitSeconds(1.25)
+                .waitSeconds(.5)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                 })
@@ -152,7 +152,7 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                     guide.setPosition(0.33);
                     targetInches = 0;
                 })
-                .turn(Math.toRadians(45))
+                .turn(Math.toRadians(55))
                 .build();
 
         drive.followTrajectorySequenceAsync(trajSeq);
