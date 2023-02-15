@@ -12,93 +12,112 @@ import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
 public class MeepMeepTesting {
     public static void main(String[] args) {
-        MeepMeep meepMeep = new MeepMeep(800);
+        MeepMeep meepMeep = new MeepMeep(500);
         Pose2d scorePose = new Pose2d(-35, -10, Math.toRadians(45));
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 12.73622)
+                .setConstraints(40, 40, Math.toRadians(160), Math.toRadians(160), 13.95)
                 .setDimensions(13, 18)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(-35, -62, Math.toRadians(90)))
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .lineToLinearHeading(scorePose)
+                                .splineToSplineHeading(new Pose2d(-35, -10, Math.toRadians(45)), Math.toRadians(85))
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .waitSeconds(1.25)
+                                .waitSeconds(0.45)
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .back(2)
-                                .turn(Math.toRadians(135))
-                                .forward(25)
+                                .splineToLinearHeading(new Pose2d(-40, -12, Math.toRadians(180)), Math.toRadians(180))
+                                .forward(20)
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .waitSeconds(0.5)
+                                .waitSeconds(0.45)
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .back(6)
+                                .back(20)
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .lineToLinearHeading(scorePose)
+                                .splineToLinearHeading(new Pose2d(-35, -10, Math.toRadians(45)), Math.toRadians(85))
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .waitSeconds(1.25)
+                                .waitSeconds(0.45)
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .back(2)
-                                .turn(Math.toRadians(135))
-                                .forward(25)
+                                .splineToLinearHeading(new Pose2d(-40, -12, Math.toRadians(180)), Math.toRadians(180))
+                                .forward(20)
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .waitSeconds(0.5)
+                                .waitSeconds(0.45)
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .back(6)
+                                .back(20)
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .lineToLinearHeading(scorePose)
+                                .splineToLinearHeading(new Pose2d(-35, -10, Math.toRadians(45)), Math.toRadians(85))
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .waitSeconds(1.25)
+                                .waitSeconds(0.45)
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .back(2)
-                                .turn(Math.toRadians(135))
-                                .forward(25)
+                                .splineToLinearHeading(new Pose2d(-40, -12, Math.toRadians(180)), Math.toRadians(180))
+                                .forward(20)
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .waitSeconds(0.5)
+                                .waitSeconds(0.45)
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .back(6)
+                                .back(20)
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .lineToLinearHeading(scorePose)
+                                .splineToLinearHeading(new Pose2d(-35, -10, Math.toRadians(45)), Math.toRadians(85))
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .waitSeconds(1.25)
+                                .waitSeconds(0.45)
                                 .addTemporalMarker(() -> {
 
                                 })
-                                .turn(Math.toRadians(45))
+                                .splineToLinearHeading(new Pose2d(-40, -12, Math.toRadians(180)), Math.toRadians(180))
+                                .forward(20)
+                                .addTemporalMarker(() -> {
+
+                                })
+                                .waitSeconds(0.45)
+                                .addTemporalMarker(() -> {
+
+                                })
+                                .back(20)
+                                .addTemporalMarker(() -> {
+
+                                })
+                                .splineToLinearHeading(new Pose2d(-35, -10, Math.toRadians(45)), Math.toRadians(85))
+                                .addTemporalMarker(() -> {
+
+                                })
+                                .waitSeconds(0.45)
+                                .addTemporalMarker(() -> {
+
+                                })
+                                .splineToLinearHeading(new Pose2d(-36, -12, Math.toRadians(90)), Math.toRadians(90))
+                                .strafeLeft(24)
                                 .build()
                 );
 
