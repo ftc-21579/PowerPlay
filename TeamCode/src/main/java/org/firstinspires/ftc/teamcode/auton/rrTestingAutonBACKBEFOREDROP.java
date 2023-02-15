@@ -58,7 +58,7 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
-                .waitSeconds(.5)
+                .waitSeconds(.25)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                 })
@@ -73,11 +73,11 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
                 })
-                .waitSeconds(0.5)
+                .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     targetInches = 12;
                 })
-                .waitSeconds(0.5)
+                .waitSeconds(0.25)
                 .back(6)
                 .addTemporalMarker(() -> {
                     targetInches = 37;
@@ -86,7 +86,7 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
-                .waitSeconds(.5)
+                .waitSeconds(.25)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                 })
@@ -101,11 +101,11 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
                 })
-                .waitSeconds(0.5)
+                .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     targetInches = 10;
                 })
-                .waitSeconds(0.5)
+                .waitSeconds(0.25)
                 .back(6)
                 .addTemporalMarker(() -> {
                     targetInches = 37;
@@ -114,7 +114,7 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
-                .waitSeconds(.5)
+                .waitSeconds(.25)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                 })
@@ -129,11 +129,11 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
                 })
-                .waitSeconds(0.5)
+                .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     targetInches = 8;
                 })
-                .waitSeconds(0.5)
+                .waitSeconds(0.25)
                 .back(6)
                 .addTemporalMarker(() -> {
                     targetInches = 37;
@@ -142,7 +142,7 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
-                .waitSeconds(.5)
+                .waitSeconds(.25)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                 })
