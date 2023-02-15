@@ -27,116 +27,116 @@ public class MeepMeepTesting {
 
                                 })
                                 .splineToSplineHeading(new Pose2d(-35, -10, Math.toRadians(45)), Math.toRadians(85))
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //guide.setPosition(0.0);
                                 })
                                 .waitSeconds(0.25)
 
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //gripServo.setPosition(0.9);
                                 })
                                 .waitSeconds(0.25)
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //guide.setPosition(0.33);
                                     //targetInches = 7;
                                 })
                                 .splineToLinearHeading(new Pose2d(-40, -12, Math.toRadians(180)), Math.toRadians(180))
                                 .forward(20)
                                 .waitSeconds(0.25)
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //gripServo.setPosition(1.0);
                                 })
                                 .waitSeconds(0.25)
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //targetInches = 37;
                                 })
                                 .back(20)
                                 .splineToSplineHeading(new Pose2d(-35, -10, Math.toRadians(45)), Math.toRadians(45))
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //guide.setPosition(0.0);
                                 })
                                 .waitSeconds(0.25)
 
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //gripServo.setPosition(0.9);
                                 })
                                 .waitSeconds(0.25)
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //guide.setPosition(0.33);
                                     //targetInches = 7;
                                 })
                                 .splineToLinearHeading(new Pose2d(-40, -12, Math.toRadians(180)), Math.toRadians(180))
                                 .forward(20)
                                 .waitSeconds(0.25)
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //gripServo.setPosition(1.0);
                                 })
                                 .waitSeconds(0.25)
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //targetInches = 37;
                                 })
                                 .back(20)
                                 .splineToSplineHeading(new Pose2d(-35, -10, Math.toRadians(45)), Math.toRadians(45))
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //guide.setPosition(0.0);
                                 })
                                 .waitSeconds(0.25)
 
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //gripServo.setPosition(0.9);
                                 })
                                 .waitSeconds(0.25)
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //guide.setPosition(0.33);
                                     //targetInches = 7;
                                 })
                                 .splineToLinearHeading(new Pose2d(-40, -12, Math.toRadians(180)), Math.toRadians(180))
                                 .forward(20)
                                 .waitSeconds(0.25)
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //gripServo.setPosition(1.0);
                                 })
                                 .waitSeconds(0.25)
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //targetInches = 37;
                                 })
                                 .back(20)
                                 .splineToSplineHeading(new Pose2d(-35, -10, Math.toRadians(45)), Math.toRadians(45))
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //guide.setPosition(0.0);
                                 })
                                 .waitSeconds(0.25)
 
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //gripServo.setPosition(0.9);
                                 })
                                 .waitSeconds(0.25)
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //guide.setPosition(0.33);
                                     //targetInches = 7;
                                 })
                                 .splineToLinearHeading(new Pose2d(-40, -12, Math.toRadians(180)), Math.toRadians(180))
                                 .forward(20)
                                 .waitSeconds(0.25)
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //gripServo.setPosition(1.0);
                                 })
                                 .waitSeconds(0.25)
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //targetInches = 37;
                                 })
                                 .back(20)
                                 .splineToSplineHeading(new Pose2d(-35, -10, Math.toRadians(45)), Math.toRadians(45))
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //guide.setPosition(0.0);
                                 })
                                 .waitSeconds(0.25)
 
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //gripServo.setPosition(0.9);
                                 })
                                 .waitSeconds(0.25)
-                                .addDisplacementMarker(() -> {
+                                .addTemporalMarker(() -> {
                                     //guide.setPosition(0.33);
                                     //targetInches = 7;
                                 })
