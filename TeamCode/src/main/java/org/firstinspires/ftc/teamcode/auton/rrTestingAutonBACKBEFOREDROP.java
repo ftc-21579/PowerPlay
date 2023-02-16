@@ -34,7 +34,7 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
     @Override
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(-35, -60, Math.toRadians(90)); // Set start pose to center of the field, facing north
+        Pose2d startPose = new Pose2d(-36, -63, Math.toRadians(90)); // Set start pose to center of the field, facing north
         drive.setPoseEstimate(startPose);
 
         Pose2d scorePose = new Pose2d(-35, -10, Math.toRadians(35));
@@ -50,7 +50,6 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
         liftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
-        drive.trajectorySequenceBuilder(new Pose2d(-36, -63, Math.toRadians(90)))
                 .addDisplacementMarker(() -> {
                     gripServo.setPosition(1.0);
                     targetInches = 37;
