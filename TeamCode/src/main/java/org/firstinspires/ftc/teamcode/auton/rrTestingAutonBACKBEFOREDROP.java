@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.auton;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -33,7 +34,7 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
     @Override
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(-35, -62, Math.toRadians(90)); // Set start pose to center of the field, facing north
+        Pose2d startPose = new Pose2d(-35, -60, Math.toRadians(90)); // Set start pose to center of the field, facing north
         drive.setPoseEstimate(startPose);
 
         Pose2d scorePose = new Pose2d(-35, -10, Math.toRadians(35));
@@ -49,17 +50,17 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
         liftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
+        drive.trajectorySequenceBuilder(new Pose2d(-36, -63, Math.toRadians(90)))
                 .addDisplacementMarker(() -> {
                     gripServo.setPosition(1.0);
                     targetInches = 37;
-
                 })
-                .splineToSplineHeading(new Pose2d(-35, -10, Math.toRadians(45)), Math.toRadians(85))
+                .splineTo(new Vector2d(-36, -27), Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-33, -8, Math.toRadians(45)), Math.toRadians(60))
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
                 .waitSeconds(0.25)
-
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                 })
@@ -68,8 +69,8 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                     guide.setPosition(0.33);
                     targetInches = 8;
                 })
-                .splineToLinearHeading(new Pose2d(-40, -12, Math.toRadians(180)), Math.toRadians(180))
-                .forward(20)
+                .lineToSplineHeading(new Pose2d(-40, -10, Math.toRadians(180)))
+                .splineToLinearHeading(new Pose2d(-59, -12, Math.toRadians(180)), Math.toRadians(180))
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
@@ -78,23 +79,22 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     targetInches = 37;
                 })
-                .back(20)
-                .splineToSplineHeading(new Pose2d(-35, -10, Math.toRadians(45)), Math.toRadians(45))
+                .back(19)
+                .splineToSplineHeading(new Pose2d(-33, -8, Math.toRadians(35)), Math.toRadians(55))
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
                 .waitSeconds(0.25)
-
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                 })
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.33);
-                    targetInches = 6;
+                    targetInches = 8;
                 })
-                .splineToLinearHeading(new Pose2d(-40, -12, Math.toRadians(180)), Math.toRadians(180))
-                .forward(20)
+                .lineToSplineHeading(new Pose2d(-40, -10, Math.toRadians(180)))
+                .splineToLinearHeading(new Pose2d(-59, -12, Math.toRadians(180)), Math.toRadians(180))
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
@@ -103,23 +103,22 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     targetInches = 37;
                 })
-                .back(20)
-                .splineToSplineHeading(new Pose2d(-35, -10, Math.toRadians(45)), Math.toRadians(45))
+                .back(19)
+                .splineToSplineHeading(new Pose2d(-33, -8, Math.toRadians(35)), Math.toRadians(55))
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
                 .waitSeconds(0.25)
-
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                 })
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.33);
-                    targetInches = 4;
+                    targetInches = 8;
                 })
-                .splineToLinearHeading(new Pose2d(-40, -12, Math.toRadians(180)), Math.toRadians(180))
-                .forward(20)
+                .lineToSplineHeading(new Pose2d(-40, -10, Math.toRadians(180)))
+                .splineToLinearHeading(new Pose2d(-59, -12, Math.toRadians(180)), Math.toRadians(180))
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
@@ -128,23 +127,22 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     targetInches = 37;
                 })
-                .back(20)
-                .splineToSplineHeading(new Pose2d(-35, -10, Math.toRadians(45)), Math.toRadians(45))
+                .back(19)
+                .splineToSplineHeading(new Pose2d(-33, -8, Math.toRadians(35)), Math.toRadians(55))
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
                 .waitSeconds(0.25)
-
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                 })
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.33);
-                    targetInches = 2;
+                    targetInches = 8;
                 })
-                .splineToLinearHeading(new Pose2d(-40, -12, Math.toRadians(180)), Math.toRadians(180))
-                .forward(20)
+                .lineToSplineHeading(new Pose2d(-40, -10, Math.toRadians(180)))
+                .splineToLinearHeading(new Pose2d(-59, -12, Math.toRadians(180)), Math.toRadians(180))
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
@@ -153,20 +151,19 @@ public class rrTestingAutonBACKBEFOREDROP extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     targetInches = 37;
                 })
-                .back(20)
-                .splineToSplineHeading(new Pose2d(-35, -10, Math.toRadians(45)), Math.toRadians(45))
+                .back(19)
+                .splineToSplineHeading(new Pose2d(-33, -8, Math.toRadians(35)), Math.toRadians(55))
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
                 .waitSeconds(0.25)
-
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.9);
                 })
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.33);
-                    targetInches = 0;
+                    targetInches = 8;
                 })
                 .splineToLinearHeading(new Pose2d(-36, -12, Math.toRadians(90)), Math.toRadians(90))
                 .strafeLeft(24)
