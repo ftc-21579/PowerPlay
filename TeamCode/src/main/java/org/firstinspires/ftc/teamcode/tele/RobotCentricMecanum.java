@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.PIDController;
 
+// Warning: this code is garbage and nobody knows how it works :D
 @TeleOp(name="RobotCentric")
 public class RobotCentricMecanum extends LinearOpMode {
 
@@ -23,7 +24,7 @@ public class RobotCentricMecanum extends LinearOpMode {
     double MIN_POSITION = 0.9, MAX_POSITION = 1;
     double multiplier = 1.0;
 
-    public static double Kp = 0.01, Ki = 0, Kd = 0;
+    public static double Kp = 0.005, Ki = 0, Kd = 0;
     public static int targetInches = 0;
 
     FtcDashboard dashboard = FtcDashboard.getInstance();
@@ -105,6 +106,7 @@ public class RobotCentricMecanum extends LinearOpMode {
             // Gripper
             if (gamepad2.a) {
                 gripPos -= 0.1;
+                wait(100); // REMOVE THIS IF IT BREAKS EVERYTHING :D
                 guide.setPosition(0.33);
             }
             if (gamepad2.b) {
