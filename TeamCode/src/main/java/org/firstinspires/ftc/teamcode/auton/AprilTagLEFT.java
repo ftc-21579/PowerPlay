@@ -326,7 +326,6 @@ public class AprilTagLEFT extends LinearOpMode
                     gripServo.setPosition(0.9);
                 })
                 .splineToLinearHeading(new Pose2d(-36, -14, Math.toRadians(90)), Math.toRadians(90))
-                //.strafeLeft(24)
                 .build();
 
         TrajectorySequence parkingThree = drive.trajectorySequenceBuilder(startPose)
