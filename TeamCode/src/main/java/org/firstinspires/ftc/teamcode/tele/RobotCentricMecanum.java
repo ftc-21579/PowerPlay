@@ -105,12 +105,12 @@ public class RobotCentricMecanum extends LinearOpMode {
 
             // Gripper
             if (gamepad2.a) {
-                gripPos -= 0.1;
-                wait(100); // REMOVE THIS IF IT BREAKS EVERYTHING :D
+                gripServo.setPosition(0.9);
+                Thread.sleep(500);
                 guide.setPosition(0.33);
             }
             if (gamepad2.b) {
-                gripPos += 0.1;
+                gripServo.setPosition(1.0);
             }
             gripPos = Range.clip(gripPos, MIN_POSITION, MAX_POSITION);
 
@@ -126,13 +126,13 @@ public class RobotCentricMecanum extends LinearOpMode {
 
             // Auto heights
             if (gamepad2.dpad_up) {
-                targetInches = 37;
+                targetInches = 38;
             } else if (gamepad2.dpad_right) {
-                targetInches = 27;
+                targetInches = 28;
             } else if (gamepad2.dpad_down) {
-                targetInches = 17;
+                targetInches = 18;
             } else if (gamepad2.dpad_left) {
-                targetInches = 0;
+                targetInches = 1;
             }
 
             if (gamepad2.guide) {
@@ -176,7 +176,7 @@ public class RobotCentricMecanum extends LinearOpMode {
                 liftMotor.setPower(command);
             }
 
-            gripServo.setPosition(Range.clip(gripPos, MIN_POSITION, MAX_POSITION));
+            //gripServo.setPosition(Range.clip(gripPos, MIN_POSITION, MAX_POSITION));
 
             telemetry.addData("gripPos", gripPos);
             telemetry.addData("vertPow", vertPow);
