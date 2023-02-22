@@ -32,8 +32,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 // Credit: OpenFTC for a lot
 @Config
-@Autonomous(name="Parking LEFT SIDE")
-public class AprilTagLEFT extends LinearOpMode
+@Autonomous(name="1+4 Guide Testing")
+public class AutonomousGuideTesting extends LinearOpMode
 {
     public static double Kp = 0.005, Ki = 0, Kd = 0;
     public static int targetInches = 0;
@@ -131,95 +131,99 @@ public class AprilTagLEFT extends LinearOpMode
                     targetInches = 37;
                 })
                 .splineTo(new Vector2d(-36, -27), Math.toRadians(90))
-                .splineToSplineHeading(new Pose2d(-33.25, -11.25, Math.toRadians(45)), Math.toRadians(60))
-                .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
-                .waitSeconds(0.35)
+                .splineToSplineHeading(new Pose2d(-34.75, -12.75, Math.toRadians(45)), Math.toRadians(60))
+                .waitSeconds(0.3)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.75);
-                })
-                .waitSeconds(0.25)
-                .addTemporalMarker(() -> {
                     guide.setPosition(0.32);
                     targetInches = 7;
                 })
                 .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
-                .splineToLinearHeading(new Pose2d(-59, -14, Math.toRadians(180)), Math.toRadians(180))
-                .waitSeconds(0.2)
+                .splineToLinearHeading(new Pose2d(-59.5, -14, Math.toRadians(180)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
                 })
-                .waitSeconds(0.3)
+                .waitSeconds(0.225)
                 .addTemporalMarker(() -> {
                     targetInches = 37;
                 })
-                .back(19)
-                .splineToSplineHeading(new Pose2d(-33.25, -11.25, Math.toRadians(45)), Math.toRadians(55))
-                .waitSeconds(0.5)
+                .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
+                .splineToSplineHeading(new Pose2d(-35.5, -13.5, Math.toRadians(45)), Math.toRadians(30))
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
-                .waitSeconds(0.35)
+                .lineToSplineHeading(new Pose2d(-34.75, -12.75, Math.toRadians(45)))
+                .waitSeconds(0.3)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.75);
-                })
-                .waitSeconds(0.25)
-                .addTemporalMarker(() -> {
                     guide.setPosition(0.32);
                     targetInches = 5;
                 })
                 .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
-                .splineToLinearHeading(new Pose2d(-59, -14, Math.toRadians(180)), Math.toRadians(180))
-                .waitSeconds(0.2)
+                .splineToLinearHeading(new Pose2d(-59.5, -14, Math.toRadians(180)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
                 })
-                .waitSeconds(0.3)
+                .waitSeconds(0.225)
                 .addTemporalMarker(() -> {
                     targetInches = 37;
                 })
-                .back(19)
-                .splineToSplineHeading(new Pose2d(-33.25, -11.25, Math.toRadians(45)), Math.toRadians(55))
-                .waitSeconds(0.5)
+                .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
+                .splineToSplineHeading(new Pose2d(-35.5, -13.5, Math.toRadians(45)), Math.toRadians(30))
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
-                .waitSeconds(0.35)
+                .lineToSplineHeading(new Pose2d(-34.75, -12.75, Math.toRadians(45)))
+                .waitSeconds(0.3)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.75);
-                })
-                .waitSeconds(0.25)
-                .addTemporalMarker(() -> {
                     guide.setPosition(0.32);
                     targetInches = 4;
                 })
                 .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
-                .splineToLinearHeading(new Pose2d(-59, -14, Math.toRadians(180)), Math.toRadians(180))
-                .waitSeconds(0.2)
+                .splineToLinearHeading(new Pose2d(-59.5, -14, Math.toRadians(180)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
                 })
-                .waitSeconds(0.3)
+                .waitSeconds(0.225)
                 .addTemporalMarker(() -> {
                     targetInches = 37;
                 })
-                .back(19)
-                .splineToSplineHeading(new Pose2d(-33.25, -11.25, Math.toRadians(45)), Math.toRadians(55))
-                .waitSeconds(0.5)
+                .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
+                .splineToSplineHeading(new Pose2d(-35.5, -13.5, Math.toRadians(45)), Math.toRadians(30))
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.0);
                 })
-                .waitSeconds(0.35)
+                .lineToSplineHeading(new Pose2d(-34.75, -12.75, Math.toRadians(45)))
+                .waitSeconds(0.3)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(0.75);
+                    guide.setPosition(0.32);
+                    targetInches = 3;
                 })
-                .waitSeconds(0.25)
+                .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
+                .splineToLinearHeading(new Pose2d(-59.5, -14, Math.toRadians(180)), Math.toRadians(180))
                 .addTemporalMarker(() -> {
+                    gripServo.setPosition(1.0);
+                })
+                .waitSeconds(0.225)
+                .addTemporalMarker(() -> {
+                    targetInches = 37;
+                })
+                .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
+                .splineToSplineHeading(new Pose2d(-35.75, -13.75, Math.toRadians(45)), Math.toRadians(30))
+                .addTemporalMarker(() -> {
+                    guide.setPosition(0.0);
+                })
+                .lineToSplineHeading(new Pose2d(-34.5, -12.5, Math.toRadians(40)))
+                .waitSeconds(0.3)
+                .addTemporalMarker(() -> {
+                    gripServo.setPosition(0.9);
                     guide.setPosition(0.32);
                     targetInches = 0;
-                    gripServo.setPosition(0.9);
                 })
                 .splineToLinearHeading(new Pose2d(-36, -14, Math.toRadians(90)), Math.toRadians(90))
                 .strafeLeft(24)
@@ -246,8 +250,8 @@ public class AprilTagLEFT extends LinearOpMode
                 })
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
-                    guide.setPosition(0.32);
-                    targetInches = 7;
+                    guide.setPosition(0.33);
+                    targetInches = 6;
                 })
                 .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
                 .splineToLinearHeading(new Pose2d(-59, -14, Math.toRadians(180)), Math.toRadians(180))
@@ -271,7 +275,7 @@ public class AprilTagLEFT extends LinearOpMode
                 })
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
-                    guide.setPosition(0.32);
+                    guide.setPosition(0.33);
                     targetInches = 5;
                 })
                 .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
@@ -296,8 +300,8 @@ public class AprilTagLEFT extends LinearOpMode
                 })
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
-                    guide.setPosition(0.32);
-                    targetInches = 4;
+                    guide.setPosition(0.33);
+                    targetInches = 3;
                 })
                 .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
                 .splineToLinearHeading(new Pose2d(-59, -14, Math.toRadians(180)), Math.toRadians(180))
@@ -321,7 +325,7 @@ public class AprilTagLEFT extends LinearOpMode
                 })
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
-                    guide.setPosition(0.32);
+                    guide.setPosition(0.33);
                     targetInches = 0;
                     gripServo.setPosition(0.9);
                 })
@@ -349,8 +353,8 @@ public class AprilTagLEFT extends LinearOpMode
                 })
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
-                    guide.setPosition(0.32);
-                    targetInches = 7;
+                    guide.setPosition(0.33);
+                    targetInches = 6;
                 })
                 .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
                 .splineToLinearHeading(new Pose2d(-59, -14, Math.toRadians(180)), Math.toRadians(180))
@@ -374,7 +378,7 @@ public class AprilTagLEFT extends LinearOpMode
                 })
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
-                    guide.setPosition(0.32);
+                    guide.setPosition(0.33);
                     targetInches = 5;
                 })
                 .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
@@ -399,8 +403,8 @@ public class AprilTagLEFT extends LinearOpMode
                 })
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
-                    guide.setPosition(0.32);
-                    targetInches = 4;
+                    guide.setPosition(0.33);
+                    targetInches = 3;
                 })
                 .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
                 .splineToLinearHeading(new Pose2d(-59, -14, Math.toRadians(180)), Math.toRadians(180))
@@ -424,7 +428,7 @@ public class AprilTagLEFT extends LinearOpMode
                 })
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
-                    guide.setPosition(0.32);
+                    guide.setPosition(0.33);
                     targetInches = 0;
                     gripServo.setPosition(0.9);
                 })

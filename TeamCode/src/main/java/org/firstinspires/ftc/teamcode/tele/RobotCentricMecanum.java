@@ -105,10 +105,11 @@ public class RobotCentricMecanum extends LinearOpMode {
 
             // Gripper
             if (gamepad2.a) {
-                gripServo.setPosition(0.9);
+                gripServo.setPosition(0.875);
                 Thread.sleep(500);
                 guide.setPosition(0.33);
             }
+
             if (gamepad2.b) {
                 gripServo.setPosition(1.0);
             }
