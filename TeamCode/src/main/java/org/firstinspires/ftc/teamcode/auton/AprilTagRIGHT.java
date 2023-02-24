@@ -176,7 +176,7 @@ public class AprilTagRIGHT extends LinearOpMode
                     targetInches = 5;
                 })
                 .lineToSplineHeading(new Pose2d(40, -14, Math.toRadians(0)))
-                .splineToLinearHeading(new Pose2d(59, -14, Math.toRadians(0)), Math.toRadians(0))
+                .splineToLinearHeading(new Pose2d(59.25, -14, Math.toRadians(0)), Math.toRadians(0))
                 .waitSeconds(0.2)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
@@ -201,7 +201,8 @@ public class AprilTagRIGHT extends LinearOpMode
                     targetInches = 4;
                 })
                 .lineToSplineHeading(new Pose2d(40, -14, Math.toRadians(0)))
-                .splineToLinearHeading(new Pose2d(59, -14, Math.toRadians(0)), Math.toRadians(0))
+                .splineToLinearHeading(new Pose2d(59.5
+                        , -14, Math.toRadians(0)), Math.toRadians(0))
                 .waitSeconds(0.2)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
@@ -226,7 +227,8 @@ public class AprilTagRIGHT extends LinearOpMode
                     targetInches = 0;
                     gripServo.setPosition(0.9);
                 })
-                .splineToLinearHeading(new Pose2d(36, -14, Math.toRadians(90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(36, -14.5, Math.toRadians(90)), Math.toRadians(90))
+                .strafeLeft(24)
                 .build();
 
         TrajectorySequence parkingTwo = drive.trajectorySequenceBuilder(startPose)
@@ -284,7 +286,7 @@ public class AprilTagRIGHT extends LinearOpMode
                     targetInches = 5;
                 })
                 .lineToSplineHeading(new Pose2d(40, -14, Math.toRadians(0)))
-                .splineToLinearHeading(new Pose2d(59, -14, Math.toRadians(0)), Math.toRadians(0))
+                .splineToLinearHeading(new Pose2d(59.25, -14, Math.toRadians(0)), Math.toRadians(0))
                 .waitSeconds(0.2)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
@@ -309,7 +311,7 @@ public class AprilTagRIGHT extends LinearOpMode
                     targetInches = 4;
                 })
                 .lineToSplineHeading(new Pose2d(40, -14, Math.toRadians(0)))
-                .splineToLinearHeading(new Pose2d(59, -14, Math.toRadians(0)), Math.toRadians(0))
+                .splineToLinearHeading(new Pose2d(59.5, -14, Math.toRadians(0)), Math.toRadians(0))
                 .waitSeconds(0.2)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
@@ -334,7 +336,7 @@ public class AprilTagRIGHT extends LinearOpMode
                     targetInches = 0;
                     gripServo.setPosition(0.9);
                 })
-                .splineToLinearHeading(new Pose2d(36, -14, Math.toRadians(90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(36, -14.5, Math.toRadians(90)), Math.toRadians(90))
                 .build();
 
         TrajectorySequence parkingThree = drive.trajectorySequenceBuilder(startPose)
@@ -392,7 +394,7 @@ public class AprilTagRIGHT extends LinearOpMode
                     targetInches = 5;
                 })
                 .lineToSplineHeading(new Pose2d(40, -14, Math.toRadians(0)))
-                .splineToLinearHeading(new Pose2d(59, -14, Math.toRadians(0)), Math.toRadians(0))
+                .splineToLinearHeading(new Pose2d(59.25, -14, Math.toRadians(0)), Math.toRadians(0))
                 .waitSeconds(0.2)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
@@ -417,7 +419,7 @@ public class AprilTagRIGHT extends LinearOpMode
                     targetInches = 4;
                 })
                 .lineToSplineHeading(new Pose2d(40, -14, Math.toRadians(0)))
-                .splineToLinearHeading(new Pose2d(59, -14, Math.toRadians(0)), Math.toRadians(0))
+                .splineToLinearHeading(new Pose2d(59.5, -14, Math.toRadians(0)), Math.toRadians(0))
                 .waitSeconds(0.2)
                 .addTemporalMarker(() -> {
                     gripServo.setPosition(1.0);
@@ -442,7 +444,7 @@ public class AprilTagRIGHT extends LinearOpMode
                     targetInches = 0;
                     gripServo.setPosition(0.9);
                 })
-                .splineToLinearHeading(new Pose2d(36, -14, Math.toRadians(90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(36, -14.5, Math.toRadians(90)), Math.toRadians(90))
                 .strafeRight(24)
                 .build();
 

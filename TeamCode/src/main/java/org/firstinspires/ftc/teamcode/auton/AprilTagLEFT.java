@@ -227,7 +227,7 @@ public class AprilTagLEFT extends LinearOpMode
                     targetInches = 0;
                     gripServo.setPosition(0.9);
                 })
-                .splineToLinearHeading(new Pose2d(-36, -14, Math.toRadians(90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(-36, -14.5, Math.toRadians(90)), Math.toRadians(90))
                 .strafeLeft(24)
                 .build();
 
@@ -336,7 +336,7 @@ public class AprilTagLEFT extends LinearOpMode
                     targetInches = 0;
                     gripServo.setPosition(0.9);
                 })
-                .splineToLinearHeading(new Pose2d(-36, -14, Math.toRadians(90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(-36, -14.5, Math.toRadians(90)), Math.toRadians(90))
                 .build();
 
         TrajectorySequence parkingThree = drive.trajectorySequenceBuilder(startPose)
@@ -444,7 +444,7 @@ public class AprilTagLEFT extends LinearOpMode
                     targetInches = 0;
                     gripServo.setPosition(0.9);
                 })
-                .splineToLinearHeading(new Pose2d(-36, -14, Math.toRadians(90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(-36, -14.5, Math.toRadians(90)), Math.toRadians(90))
                 .strafeRight(24)
                 .build();
 
