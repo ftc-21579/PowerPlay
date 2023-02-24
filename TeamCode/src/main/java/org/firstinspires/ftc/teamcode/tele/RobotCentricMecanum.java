@@ -45,6 +45,7 @@ public class RobotCentricMecanum extends LinearOpMode {
         // Servo
         Servo gripServo = hardwareMap.servo.get("manipulator");
         Servo guide = hardwareMap.servo.get("guide");
+        Servo signal = hardwareMap.servo.get("signal");
 
         liftEncoder = hardwareMap.get(DcMotorEx.class, "motorFrontRight");
         liftMotor = hardwareMap.crservo.get("vertical"); // Ensure Spark Mini is on Braking
@@ -80,6 +81,7 @@ public class RobotCentricMecanum extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
+            signal.setPosition(0.55);
             if(gamepad1.left_trigger > 0.2 || gamepad1.right_trigger > 0.2 || gamepad1.left_bumper || gamepad1.right_bumper) {
                 multiplier = 0.5;
             }
