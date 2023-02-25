@@ -81,7 +81,7 @@ public class AutonomousTesting extends LinearOpMode
         FtcDashboard dashboard = FtcDashboard.getInstance();
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(-36, -63, Math.toRadians(90)); // Set start pose to center of the field, facing north
+        Pose2d startPose = new Pose2d(-36, -64, Math.toRadians(90)); // Set start pose to center of the field, facing north
         drive.setPoseEstimate(startPose);
 
         Pose2d scorePose = new Pose2d(-35, -10, Math.toRadians(35));

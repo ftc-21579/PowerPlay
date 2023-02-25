@@ -81,7 +81,7 @@ public class AprilTagLEFT extends LinearOpMode
         FtcDashboard dashboard = FtcDashboard.getInstance();
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(-36, -63, Math.toRadians(90)); // Set start pose to center of the field, facing north
+        Pose2d startPose = new Pose2d(-36, -64, Math.toRadians(90)); // Set start pose to center of the field, facing north
         drive.setPoseEstimate(startPose);
 
         Pose2d scorePose = new Pose2d(-35, -10, Math.toRadians(35));
@@ -174,7 +174,7 @@ public class AprilTagLEFT extends LinearOpMode
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.32);
-                    targetInches = 5;
+                    targetInches = 6;
                 })
                 .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
                 .splineToLinearHeading(new Pose2d(-59, -14, Math.toRadians(180)), Math.toRadians(180))
@@ -283,7 +283,7 @@ public class AprilTagLEFT extends LinearOpMode
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.32);
-                    targetInches = 5;
+                    targetInches = 6;
                 })
                 .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
                 .splineToLinearHeading(new Pose2d(-59, -14, Math.toRadians(180)), Math.toRadians(180))
@@ -391,7 +391,7 @@ public class AprilTagLEFT extends LinearOpMode
                 .waitSeconds(0.25)
                 .addTemporalMarker(() -> {
                     guide.setPosition(0.32);
-                    targetInches = 5;
+                    targetInches = 6;
                 })
                 .lineToSplineHeading(new Pose2d(-40, -14, Math.toRadians(180)))
                 .splineToLinearHeading(new Pose2d(-59, -14, Math.toRadians(180)), Math.toRadians(180))
