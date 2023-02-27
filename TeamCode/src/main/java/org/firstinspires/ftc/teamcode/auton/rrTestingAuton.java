@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.auton;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -17,6 +18,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.util.PIDController;
 
 @Autonomous(name="RR Testing")
+@Disabled
 public class rrTestingAuton extends LinearOpMode {
 
     public static double Kp = 0.01, Ki = 0, Kd = 0;

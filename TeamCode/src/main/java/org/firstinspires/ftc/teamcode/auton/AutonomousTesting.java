@@ -8,6 +8,7 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -33,6 +34,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 // Credit: OpenFTC for a lot
 @Config
 @Autonomous(name="1+4 Left")
+@Disabled
 public class AutonomousTesting extends LinearOpMode
 {
     public static double Kp = 0.005, Ki = 0, Kd = 0;

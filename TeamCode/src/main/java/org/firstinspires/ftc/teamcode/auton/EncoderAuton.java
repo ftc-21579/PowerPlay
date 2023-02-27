@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.auton;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -16,6 +17,7 @@ import org.firstinspires.ftc.teamcode.util.PIDController;
 
 @Config
 @Autonomous(name="TestingAuton", group="LinearOpmode")
+@Disabled
 public class EncoderAuton extends LinearOpMode {
 
     //private EncoderMovement movement;
