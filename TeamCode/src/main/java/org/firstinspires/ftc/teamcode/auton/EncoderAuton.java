@@ -1,65 +1,69 @@
 package org.firstinspires.ftc.teamcode.auton;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.subsystems.Lift;
-import org.firstinspires.ftc.teamcode.util.EncoderMovement;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.util.PIDController;
 
 @Config
 @Autonomous(name="TestingAuton", group="LinearOpmode")
+@Disabled
 public class EncoderAuton extends LinearOpMode {
 
-    private EncoderMovement movement;
-    private Lift lift;
-    private double liftSpeed = 0.5, DROP_TIME = 2.0;
-    public static double speed = 0.4;
+    //private EncoderMovement movement;
+    //private double liftSpeed = 0.5, DROP_TIME = 2.0;
+    //public static double speed = 0.4;
+    public static double Kp = 0.01, Ki = 0, Kd = 0;
+    public static int targetInches = 24;
+
+    FtcDashboard dashboard = FtcDashboard.getInstance();
+    Telemetry dashboardTelemetry = dashboard.getTelemetry();
+
+    DcMotorEx liftEncoder;
+    CRServo liftMotor;
+
+    PIDController control = new PIDController(Kp, Ki, Kd, dashboardTelemetry);
 
     @Override
     public void runOpMode() {
         telemetry.setAutoClear(true);
 
-        movement = new EncoderMovement(hardwareMap, telemetry);
-        lift = new Lift(hardwareMap, telemetry);
+        liftEncoder = hardwareMap.get(DcMotorEx.class, "motorFrontRight");
+        liftMotor = hardwareMap.crservo.get("vertical"); // Ensure Spark Mini is on Braking
+
+        liftEncoder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+        //movement = new EncoderMovement(hardwareMap, telemetry);
         //Lift.LiftState liftState = Lift.LiftState.LIFT_START;
 
         waitForStart();
 
-        boolean cycled = false;
-        boolean movedForward1 = false, turned1 = false, movedForward2 = false, turned2 = false, movedBackward = false;
-
-        lift.grab();
-
         while(opModeIsActive()) {
+            int targetPosition = (int)(targetInches * 64.68056888);
 
- 
-            if (!movedForward1) {
-                movement.moveForward(50, speed);
-                movedForward1 = true;
-            } else if (movedForward1 && !turned1) {
-                movement.turnClockwise(43, speed);
-                turned1 = true;
-            } else if (movedForward1 && turned1 && !movedForward2) {
-                movement.moveForward(2, speed);
-                movedForward2 = true;
-            }   else if (movedForward1 && turned1 && movedForward2 && !cycled) {
-                lift.cycle();
-                cycled = true;
-            } else if (movedForward1 && turned1 && movedForward2 && cycled && !turned2) {
-                movement.turnCounterClockwise(40, speed);
-                turned2 = true;
-            } else if (movedForward1 && turned1 && movedForward2 && cycled && turned2 && !movedBackward) {
-                movement.moveForward(-26, speed);
-                movedBackward = true;
-            }
+            // Update pid controller
+            double command = control.update(targetPosition, liftEncoder.getCurrentPosition());
+            command = Range.clip(command, -1, 1);
+            // Assign PID output
+            dashboardTelemetry.addData("Command", command);
+            liftMotor.setPower(command);
 
-
-
-
+            dashboardTelemetry.update();
+            //telemetry.update();
         }
-
-        //movement.moveForward(24, 0.4);
     }
 }
 
