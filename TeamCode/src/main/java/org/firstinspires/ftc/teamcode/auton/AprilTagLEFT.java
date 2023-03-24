@@ -234,8 +234,8 @@ public class AprilTagLEFT extends LinearOpMode
                 })
                 .waitSeconds(scoreTime3)
                 .splineTo(new Vector2d(-36, -24), Math.toRadians(270))
-                .splineToConstantHeading(new Vector2d(-48, -36), Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(-60, -36), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-48, -35), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-60, -35), Math.toRadians(180))
                 .build();
 
         TrajectorySequence parkingTwo = drive.trajectorySequenceBuilder(startPose)
@@ -336,7 +336,7 @@ public class AprilTagLEFT extends LinearOpMode
                 })
                 .waitSeconds(scoreTime3)
                 .splineTo(new Vector2d(-36, -24), Math.toRadians(270))
-                .splineTo(new Vector2d(-36, -36), Math.toRadians(270))
+                .splineTo(new Vector2d(-36, -35), Math.toRadians(270))
                 .build();
 
         TrajectorySequence parkingThree = drive.trajectorySequenceBuilder(startPose)
@@ -437,8 +437,8 @@ public class AprilTagLEFT extends LinearOpMode
                 })
                 .waitSeconds(scoreTime3)
                 .splineTo(new Vector2d(-36, -24), Math.toRadians(270))
-                .splineToConstantHeading(new Vector2d(-24, -36), Math.toRadians(0))
-                .splineToConstantHeading(new Vector2d(-12, -36), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(-24, -35), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(-12, -35), Math.toRadians(0))
                 .build();
 
         //drive.followTrajectorySequenceAsync(trajSeq);
